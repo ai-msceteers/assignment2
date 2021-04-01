@@ -13,9 +13,10 @@ Homepage: https://github.com/ai-msceteers/assignment2
 
 # Report
 
-To compile the `resources/author.tex` template, make sure the `svproc.cls`
-document class it uses (included in `resources/ProcSci_TeX.zip`) is in your
-local `TEXMFHOME` directory.  For example, on GNU/Linux:
+To compile the [`resources/author.tex`](resources/author.tex) template, make
+sure the `svproc.cls` document class it uses (included in
+[`resources/ProcSci_TeX.zip`](resources/ProcSci_TeX.zip)) is in your local
+`TEXMFHOME` directory.  For example, on GNU/Linux:
 
 ```console
 $ D=~/texmf/tex/latex/svproc/
@@ -31,10 +32,12 @@ A few recommendations:
   later stages of the writeup when cross-references and bibliographies are
   involved.
 
-- Prefer the more modern `biblatex` and `biber` bibliography tools and dialects
-  over their still traditional BibTeX counterparts.  The former include more and
-  better-formatted styles OOTB, and have better Unicode support.  The main
-  reason to prefer the latter is when submitting to a journal that requires it.
+- Prefer the more modern [`biblatex`](https://ctan.org/pkg/biblatex) and
+  [`biber`](https://ctan.org/pkg/biber) bibliography tools and dialects over
+  their still traditional [BibTeX](http://www.bibtex.org/) counterparts.  The
+  former include more and better-formatted styles OOTB, and have better Unicode
+  support.  The main reason to prefer the latter is when submitting to a journal
+  that requires it.
 
 - The [`minted`](https://ctan.org/pkg/minted) package makes it easy to include
   beautifully syntax-highlighted code listings.
