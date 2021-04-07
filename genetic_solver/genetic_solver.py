@@ -11,7 +11,7 @@ class GeneticSolver(object):
         self.solutions = [Solution(self.cube, w=w)  for _ in range(population_size)]
         
         
-    def reduce_population(self, goal=None):
+    def reduce_population(self, goal=None, randomness = 0.0):
         goal = goal if goal!=None else self.population_size
         
         

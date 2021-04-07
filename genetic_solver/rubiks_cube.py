@@ -17,6 +17,12 @@ class Solution(object):
         self.moves.append(move)
         self.cube.apply_move(move)
         return self.cost()
+    
+    def modify_moves(self, moves):
+        self.cube = deepcopy(self.inital)
+        self.moves = []
+        for move in moves:
+            self.add(move)
         
     def cost(self):
         cube_cost = self.cube.cost
