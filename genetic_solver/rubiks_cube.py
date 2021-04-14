@@ -3,41 +3,6 @@ import random
 from copy import deepcopy
 from collections import Counter
 
-
-class Solution(object):
- 
-    moves = []
-    
-    def __init__(self, cube, w=1.0):
-        self.inital = deepcopy(cube)
-        self.cube = deepcopy(cube)
-        self.w = w
-        
-    def add(self, move):
-        self.moves.append(move)
-        self.cube.apply_move(move)
-        return self.cost()
-    
-    def modify_moves(self, moves):
-        self.cube = deepcopy(self.inital)
-        self.moves = []
-        for move in moves:
-            self.add(move)
-        
-    def cost(self):
-        cube_cost = self.cube.cost
-        penalty_cost = len(self.moves)
-        total_cost = self.w*cube_cost + (1-self.w)*penalty_cost
-        return total_cost
-    
-    def is_solved(self):
-        return self.cube.is_solved()
-    
-    def is_better_than(self, solution):
-        is_better = self.cost() < solution.cost()
-        return is_better
-    
-    
         
 
 
@@ -51,11 +16,12 @@ class RubiksCube(object):
     # 4 : left
     # 5 : right
     
-    random_moves = []
-    cost = 0
+    
     
     def __init__(self, n=3, randomize=True):
         self.n = n
+        self.random_moves = []
+        self.cost = 0
         self.cube = np.stack([np.ones((n,n))*i for i in range(6)])   
         if(randomize):
             self.randomize()            
@@ -74,7 +40,7 @@ class RubiksCube(object):
     
     
     # TODO: Look for a better cost function
-    def calulate_cost(self):
+    def calulate_cost_old(self):
         total_cost = 0
         for i in range(6):
             _, most_common_count = Counter(self.cube[i].ravel()).most_common()[0]
@@ -83,12 +49,25 @@ class RubiksCube(object):
             
         self.cost = total_cost
         return self.cost
+    
+    
+    def calulate_cost(self):
+        total_cost = 0
+        for i in range(6):
+            current_face_cost = np.sum(self.cube[i] != self.cube[i, int(self.n/2.0), int(self.n/2.0)])
+            total_cost += current_face_cost
+            
+        self.cost = total_cost
+        return self.cost
 
     
     def get_random_move(self):
-        row = random.randint(0,self.n-1)
-        direction = random.choice(["u", "d", "l", "r"])
-        move = (row, direction)
+        if(random.random()<1/13):
+            return None
+        else:
+            row = random.randint(0,self.n-1)
+            direction = random.choice(["u", "d", "l", "r"])
+            move = (row, direction)
         return move
 
         
@@ -109,6 +88,9 @@ class RubiksCube(object):
       
             
     def apply_move(self, move):
+        if(move==None):
+            return self.face()
+        
         row, direction = move
         
         if(direction=="u"):
@@ -138,6 +120,8 @@ class RubiksCube(object):
     
     
     
+cube = RubiksCube(3, False)
+
 
     
     
