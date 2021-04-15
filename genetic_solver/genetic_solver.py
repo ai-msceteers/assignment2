@@ -9,12 +9,13 @@ current_id = 0
 
 class GeneticSolution(object):
         
-    def __init__(self, cube, s=40, w=1.0):
+    def __init__(self, cube, s=30, w=1.0):
         self.inital = deepcopy(cube)
         self.cube = deepcopy(cube)
         self.w = w
-        self.moves = [self.cube.get_random_move() for _ in range(s)]
-        #self.moves = [None for _ in range(s)]
+        #self.moves = [self.cube.get_random_move() for _ in range(s)]
+        self.moves = []#None for _ in range(s)]
+        self.costs = []
         self.apply_moves()
     
     def apply_moves(self):
@@ -27,10 +28,11 @@ class GeneticSolution(object):
         self.moves = self.moves[:(-1*n)]
         
     def cost(self):
-        cube_cost = self.cube.cost
-        penalty_cost = len(self.moves)
-        total_cost = self.w*cube_cost + (1-self.w)*penalty_cost
-        return total_cost
+        return self.cube.calculate_cost()
+        #cube_cost = self.cube.calculate_cost()
+        #penalty_cost = len(self.moves)
+        #total_cost = self.w*cube_cost + (1-self.w)*penalty_cost
+        #return total_cost
     
     def is_solved(self):
         return self.cube.is_solved()
@@ -40,33 +42,54 @@ class GeneticSolution(object):
         return is_better
     
     def mutate_moves(self):
-        for _ in range(random.randint(0, 5)):
-            self.moves[random.randint(0, len(self.moves)-1)] = self.cube.get_random_move()
+        n_moves_mutate = random.randint(1, 4)
+        for _ in range(n_moves_mutate):
+            if(random.randint(0, 2)==0):
+                self.moves[random.randint(0, len(self.moves)-1)] = self.cube.get_random_move()
+            elif(random.randint(0, 1)==0):
+                self.moves[random.randint(0, len(self.moves)-1)] = None
+            else:
+                self.moves.append(self.cube.get_random_move())
         self.apply_moves()
         
     
-    def mutate(self, p=0.05, randomness=0.5, max_tries = 1):
+    def mutate(self, p=0.05, randomness=0.05, max_tries = 1, max_steps=6):
         #print("Making Move: ({})".format(str(self)))
         if(random.random() < p and not self.is_solved()):
             i = 0
             while(i < max_tries):
                 i = i+1
-                
                 old_cost = self.cost()
+                random_moves = [self.cube.get_random_move() for i in range(random.randint(0, max_steps))]
                 temp = deepcopy(self)
-                temp.mutate_moves()
+                temp.cube.apply_moves(random_moves)
+                #temp.mutate_moves()
                 new_cost = temp.cost()
-                if(old_cost <= new_cost or random.random() < randomness):
-                    self.moves = temp.moves
-                    self.apply_moves()
+                if(old_cost > new_cost or random.random() < randomness):
+                    self.moves = self.moves + random_moves
+                    #print("Accepting move", old_cost, new_cost)
+                    self.cube.apply_moves(random_moves)
+                    self.costs.append((new_cost, len(self.moves)))
+                    assert new_cost == self.cost()
+                    #self.moves = temp.moves
+                    #self.apply_moves()
                     break
                 else:
                     assert old_cost == self.cost()
                 
             #print(old_cost, self.cost(), self.moves)
-            
-                    
-                
+    
+    
+#cube = RubiksCube(3)
+#start_time = time.time()              
+#solution = GeneticSolution(cube, s=30, w=1.0)
+#t = 0.2
+#for i in range(0):
+#    solution.mutate(p=1.0, randomness=t, max_tries = 1)
+#    if(solution.is_solved()):
+#        break
+#    t = t*0.9
+#print(time.time()-start_time)
 
 
 class GeneticSolver(object):
@@ -93,11 +116,13 @@ class GeneticSolver(object):
     def crossover_population(self, solutions, n=None):
         if(n==None):
             n = len(solutions)
-        costs = 48 - self.get_costs(solutions)
+        if(n == 0):
+            return []
+        costs = self.cube.worst_cost - self.get_costs(solutions)
         prob_dist = costs/np.sum(costs)
         solutions_selected = np.random.choice(solutions, int(n), p=prob_dist, replace=False)
         
-        selected_costs = 48 - self.get_costs(solutions_selected)
+        selected_costs = self.cube.worst_cost - self.get_costs(solutions_selected)
         selected_prob_dist = selected_costs/np.sum(selected_costs)
         solutions_pairs = np.random.choice(solutions_selected, n*2, p=selected_prob_dist, replace=True).reshape((n, 2))
         #print(selected_prob_dist)
@@ -131,48 +156,57 @@ class GeneticSolver(object):
                 self.solutions = self.solutions[argsort[:goal]]
                 
                 
-    def run(self, max_iterations=10, p_crossover=0.8, p_elites=0.1, p_mutate=0.1):
+    def run(self, max_iterations=10, p_crossover=0.8, p_elites=0.1, p_mutate=0.1, randomness=0.1, max_steps=6):
         
         time_started = time.time()
         print(self.get_costs(self.solutions))
+        self.best_solution_yet = deepcopy(self.solutions[0])
         for i in range(max_iterations):  
-            list(map(lambda x: x.mutate(p=p_mutate, randomness=1.0, max_tries = 1), self.solutions))
-            #np.vectorize(GeneticSolution.mutate)(self.solutions)
+            list(map(lambda x: x.mutate(p=p_mutate, randomness=randomness, max_tries=1, max_steps=max_steps), self.solutions))
             costs = self.get_costs(self.solutions)
-            argsort = np.argsort(costs)        
+            argsort = np.argsort(costs)     
             
-            n_children = int(p_crossover*self.population_size)
-            n_elites = int(p_elites*self.population_size)
-            n_non_elites =  max(0, self.population_size -  n_children - n_elites)
+            if(min(costs)>self.best_solution_yet.cost()):
+                self.solutions[argsort[-1]] = deepcopy(self.best_solution_yet)
             
-            children = self.crossover_population(self.solutions, n=n_children)
-            elites = self.solutions[argsort[:n_elites]].reshape((1,-1))
-            non_elites = self.solutions[argsort[n_elites:]]
-                                        
-            if(n_non_elites > 0):
-                non_elite_efficiency = 48 - self.get_costs(non_elites)
-                prob_dist = non_elite_efficiency/np.sum(non_elite_efficiency)
-                non_elites_chosen = np.random.choice(non_elites, n_non_elites, p=prob_dist, replace=False).reshape((1,-1))
-                self.solutions = np.hstack((elites, non_elites_chosen, children)).ravel()
-            else:
-                self.solutions = np.hstack((elites, children)).ravel()
+            if(min(costs) < self.best_solution_yet.cost()):
+                self.best_solution_yet = deepcopy(self.solutions[argsort[0]])
+                
+            if(False):
+                n_children = int(p_crossover*self.population_size)
+                n_elites = int(p_elites*self.population_size)
+                n_non_elites =  max(0, self.population_size -  n_children - n_elites)
+            
+                children = self.crossover_population(self.solutions, n=n_children)
+                elites = self.solutions[argsort[:n_elites]].reshape((1,-1))
+                non_elites = self.solutions[argsort[n_elites:]]
+                                           
+                if(n_non_elites > 0):
+                    non_elite_efficiency = self.cube.worst_cost - self.get_costs(non_elites)
+                    prob_dist = non_elite_efficiency/np.sum(non_elite_efficiency)
+                    non_elites_chosen = np.random.choice(non_elites, n_non_elites, p=prob_dist, replace=False).reshape((1,-1))
+                    combine_tuple = (elites, non_elites_chosen, children) if len(children)!=0 else (elites, non_elites_chosen)
+                else:
+                    combine_tuple = (elites, children) if len(children)!=0 else (elites)
+                    
+                #self.solutions = np.hstack(combine_tuple).ravel()
                 
             if(min(costs)==0):
                 break
             
-            if(i%100==0):
-                print("Current Best: ", min(costs))
+            if(i%20==0):
+                print(str(i)+"  Current Best: ", min(costs), " ",  self.best_solution_yet.cost(), "    ", time.time()-time_started)
                 
             #print(len(self.solutions))
         
             #moves = np.vectorize(lambda x: x.moves)(self.solutions)
-        time_taken = round(time.time()-time_started)
+        time_taken = round(time.time()-time_started, 4)
         print("Time Taken: ", time_taken, 2)
         costs = self.get_costs(self.solutions)
         print(costs)
         print(min(costs))
         
-        return time_taken
+        return self.best_solution_yet, time_taken
         
                              
                              
@@ -185,11 +219,17 @@ class GeneticSolver(object):
 
 #cube = RubiksCube(3)
 
-s = GeneticSolver(n=3, w=1, population_size=100)
+s = GeneticSolver(n=2, w=1, population_size=50)
 print(s.cube)
-s.run(max_iterations=2000, p_crossover=0.3, p_elites=0.7, p_mutate=0.5)
+best, t = s.run(max_iterations=2000, 
+                p_crossover=0.0, 
+                p_elites=1.0, 
+                p_mutate=1, 
+                randomness=0.02,
+                max_steps=6)
 print(s.cube)
 
+s.best_solution_yet
 
 
 

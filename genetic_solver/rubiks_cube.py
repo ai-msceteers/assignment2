@@ -5,7 +5,6 @@ from collections import Counter
 
         
 
-
 class RubiksCube(object):
     
     # Faces stores in 6 NxN faces stored as a numpy matrix in cube 
@@ -20,6 +19,7 @@ class RubiksCube(object):
     
     def __init__(self, n=3, randomize=True):
         self.n = n
+        self.worst_cost = 48
         self.random_moves = []
         self.cost = 0
         self.cube = np.stack([np.ones((n,n))*i for i in range(6)])   
@@ -40,7 +40,7 @@ class RubiksCube(object):
     
     
     # TODO: Look for a better cost function
-    def calulate_cost_old(self):
+    def calulate_cost_v1(self):
         total_cost = 0
         for i in range(6):
             _, most_common_count = Counter(self.cube[i].ravel()).most_common()[0]
@@ -50,28 +50,44 @@ class RubiksCube(object):
         self.cost = total_cost
         return self.cost
     
-    
-    def calulate_cost(self):
-        total_cost = 0
-        for i in range(6):
-            current_face_cost = np.sum(self.cube[i] != self.cube[i, int(self.n/2.0), int(self.n/2.0)])
-            total_cost += current_face_cost
+    def calculate_cost(self):
+        #print()
+        #print()
+        self.worst_cost = ((self.n*self.n*(self.n-1)) + 1)*6
+
+        get_n_colors_func = lambda x: len(set(x)) - 1 
+        binary_cost_func = lambda x: int(len(set(x))!= 1)
+        cost_func = get_n_colors_func
+        #cost_func = binary_cost_func
+        
+        def face_cost_func(face):
+            #print(face)
+            rows_cost = np.apply_along_axis(cost_func, 1, face).sum()
+            cols_cost = np.apply_along_axis(cost_func, 0, face).sum()
+            is_solved = (rows_cost + cols_cost) == 0
+            current_face_cost = rows_cost + cols_cost + (not is_solved)
+            #print(rows_cost, cols_cost, is_solved, current_face_cost)
+            return current_face_cost
+        
+        total_cost = np.sum([face_cost_func(self.cube[i]) for i in range(6)])
+        #print(total_cost)
+        
+        #for i in range(6):
+        #    current_face_cost = face_cost_func(self.cube[i])
+        #    total_cost += current_face_cost
             
         self.cost = total_cost
         return self.cost
 
     
     def get_random_move(self):
-        if(random.random()<1/13):
-            return None
-        else:
-            row = random.randint(0,self.n-1)
-            direction = random.choice(["u", "d", "l", "r"])
-            move = (row, direction)
+        row = random.randint(0,self.n-1)
+        direction = random.choice(["u", "d", "l", "r"])
+        move = (row, direction)
         return move
 
         
-    def randomize(self, n_moves_range = (30, 50)):
+    def randomize(self, n_moves_range = (30, 40)):
         self.random_moves = []
         for i in range(random.randint(*n_moves_range)):
             move = self.get_random_move()
@@ -109,7 +125,7 @@ class RubiksCube(object):
                 self.cube[i2,:, row] = temp_cube[i1, :, row]
             elif(direction in ["l", "r"]):
                 self.cube[i2, row, :] = temp_cube[i1, row, :] 
-        self.cost = self.calulate_cost()
+        self.cost = self.calculate_cost()
         
         return self.face()
     
@@ -119,9 +135,19 @@ class RubiksCube(object):
             self.apply_move(move)     
     
     
+cube = RubiksCube(3, randomize=True)
+orginal = deepcopy(cube)
+random_moves = [cube.get_random_move() for i in range(random.randint(0, 6))]
+cube = RubiksCube(3, randomize=True)
+orginal = deepcopy(cube)
+cube.apply_moves(random_moves)
+cube.backtrack(random_moves)
+#print(cube.cube)
+#cube.apply_move(cube.get_random_move())
+#cube.apply_move(cube.get_random_move())
+#print(cube.calculate_cost())
     
-cube = RubiksCube(3, False)
-
+    
 
     
     
