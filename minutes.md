@@ -1,3 +1,25 @@
+# 2021-04-15 Thursday 20:00-22:00
+
+- Talha, Fionntán, and Basil present.
+
+- Discussed progress to date and concerns.
+  + Talha succeeded in solving a cube of size 2 with a genetic algorithm.
+  + Talha and Fionntán discussed issues with their cost functions, and possible
+    mitigations in the possible move sets.
+  + Basil suggested informing the cost function with domain-specific knowledge
+    like tile adjacency invariants.
+  + Talha was concerned about poor performance of genetic and simulated
+    annealing approaches with cubes of size 3.
+  + Talha suggested switching projects to a different, more feasible topic.
+  + Basil suggested it's too late to switch because everyone has already done a
+    lot of research into their respective approaches.  In the worst case, a
+    negative result in the n=3 case is still an interesting result when compared
+    to other algorithms.  We may lose some marks for technical soundness, but
+    ideally it won't be too dire.  The key is to make a decent comparison.
+
+- Agreed to try and have most of the implementations done over the weekend so
+  that we can then focus on the report and presentation.
+
 # 2021-04-01 Thursday 17:00-18:00
 
 - Everyone present.
