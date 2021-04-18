@@ -46,3 +46,11 @@ Lots of these reference related work and implementations.
   Springer, Cham.
 
 - Goga, A.  Reinforcement learning in 2048 game.
+
+# Links
+
+- https://cflmath.com/Rubik/optimal_solver.html
+- https://en.wikipedia.org/wiki/Optimal_solutions_for_Rubik%27s_Cube
+  + Thistlethwaite, Kociemba, Korf algorithms
+  + IDA*
+- http://cube20.org/
