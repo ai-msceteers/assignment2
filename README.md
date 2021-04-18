@@ -6,10 +6,10 @@ Homepage: https://github.com/ai-msceteers/assignment2
 
 ## Team Members
 
-- Basil Contovounesios
-- William O'Sullivan
-- Fionntán Ó Suibhne
 - Muhammad Talha Bin Ijaz
+- Basil Contovounesios
+- Fionntán Ó Suibhne
+- William O'Sullivan
 
 # Report
 
