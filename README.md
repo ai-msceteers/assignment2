@@ -11,7 +11,19 @@ Homepage: https://github.com/ai-msceteers/assignment2
 - Fionntán Ó Suibhne
 - William O'Sullivan
 
+## Team Organisation
+
+The minutes of each group meeting are kept in reverse chronological order in the
+file [`minutes.md`](minutes.md).
+
+Auxiliary notes for the project are kept in the file [`notes.md`](notes.md).
+
 # Report
+
+The output of this project is the technical report
+[`report/rubik.pdf`](report/rubik.pdf).  Its source can be found in the file
+[`report/rubik.tex`](report/rubik.tex), which follows the given template in
+[`resources/author.tex`](resources/author.tex).
 
 ## Template
 
@@ -57,7 +69,8 @@ $ cp /tmp/procsci/styles/svproc.cls $D
   $pdf_mode = 4;
   ```
 
-  Then to compile the document `rubik.tex`, just run `latexmk rubik.tex`.
+  Then to compile the document [`rubik.tex`](report/rubik.tex), just run
+  `latexmk rubik.tex`.
 
 - The [`minted`](https://ctan.org/pkg/minted) package makes it easy to include
   beautifully syntax-highlighted code listings.
