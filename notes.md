@@ -54,3 +54,5 @@ Lots of these reference related work and implementations.
   + Thistlethwaite, Kociemba, Korf algorithms
   + IDA*
 - http://cube20.org/
+- https://openreview.net/forum?id=Hyfn2jCcKm
+  Interesting reviews of paper
