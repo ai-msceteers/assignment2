@@ -1,3 +1,25 @@
+# 2021-04-22 Thursday 20:30-22:45
+
+- Fionntán, Will, and Basil present.
+
+- Status updates
+  + Will has been doing backround reading on the algorithms, and has about a
+    third of a draft report ready.
+  + Fionntán has spent a lot of time tuning a hybrid annealing approach that
+    solves cubes of both size 2 and 3.
+  + Basil has [DeepCubeA](https://github.com/ai-msceteers/DeepCubeA) solving
+    cubes of size 3 using the provided DNN, and is training a model for cubes of
+    size 2.
+
+- Most of the meeting comprised Fionntán and Basil walking Will through their
+  theory and code.
+
+- Agreed to submit by original extended deadline of 25th April.
+
+- Todos
+  + Basil to generate graphs for DeepCubeA under different configurations.
+  + Will to continue writeup and call on others for input, notes, etc.
+
 # 2021-04-15 Thursday 20:00-22:00
 
 - Talha, Fionntán, and Basil present.
