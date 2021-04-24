@@ -1,0 +1,302 @@
+%Used References
+@online{mcaleer2018solving,
+  title        = {Solving the {Rubik's} Cube Without Human Knowledge},
+  author       = {McAleer, Stephen and Agostinelli, Forest and Shmakov,
+                  Alexander and Baldi, Pierre},
+  date         = {2018-05-18},
+  version      = {1},
+  eprint       = {1805.07470},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.AI}
+}
+
+@inproceedings{mcaleer2019solving,
+  title        = {Solving the {Rubik's} Cube with Approximate Policy Iteration},
+  author       = {McAleer, Stephen and Agostinelli, Forest and Shmakov,
+                  Alexander and Baldi, Pierre},
+  booktitle    = {ICLR 2019},
+  booktitleaddon = {Proceedings of the Seventh International Conference on
+                  Learning Representations},
+  date         = {2019-05},
+  venue        = {New Orleans, LA, USA}
+}
+
+@article{agostinelli2019solving,
+  title        = {Solving the {Rubik's} cube with deep reinforcement learning
+                  and search},
+  author       = {Agostinelli, Forest and McAleer, Stephen and Shmakov,
+                  Alexander and Baldi, Pierre},
+  journaltitle = {Nature Machine Intelligence},
+  volume       = {1},
+  number       = {8},
+  pages        = {356--363},
+  date         = {2019},
+  publisher    = {Nature Publishing Group}
+}
+
+%/////////////////////////////////////////////
+%William's Background
+%genetic algorithm
+@InProceedings{10.1007/978-3-642-12239-2_9,
+author="El-Sourani, Nail
+and Hauke, Sascha
+and Borschbach, Markus",
+editor="Di Chio, Cecilia
+and Cagnoni, Stefano
+and Cotta, Carlos
+and Ebner, Marc
+and Ek{\'a}rt, Anik{\'o}
+and Esparcia-Alcazar, Anna I.
+and Goh, Chi-Keong
+and Merelo, Juan J.
+and Neri, Ferrante
+and Preu{\ss}, Mike
+and Togelius, Julian
+and Yannakakis, Georgios N.",
+title="An Evolutionary Approach for Solving the Rubik's Cube Incorporating Exact Methods",
+booktitle="Applications of Evolutionary Computation",
+year="2010",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="80--89",
+abstract="Solutions calculated by Evolutionary Algorithms have come to surpass exact methods for solving various problems. The Rubik's Cube multiobjective optimization problem is one such area. In this work we present an evolutionary approach to solve the Rubik's Cube with a low number of moves by building upon the classic Thistlethwaite's approach. We provide a group theoretic analysis of the subproblem complexity induced by Thistlethwaite's group transitions and design an Evolutionary Algorithm from the ground up including detailed derivation of our custom fitness functions. The implementation resulting from these observations is thoroughly tested for integrity and random scrambles, revealing performance that is competitive with exact methods without the need for pre-calculated lookup-tables.",
+isbn="978-3-642-12239-2"
+}
+
+@Inbook{Thistlethwaite,
+author =  {Thistlethwaite, M.B.},
+title = {The 45-52 Move Strategy.},
+year = {1981},
+publisher = {London CL VIII},
+}
+
+
+%A* Rubik's solver
+@inproceedings{10.5555/1867406.1867515,
+author = {Korf, Richard E.},
+title = {Finding Optimal Solutions to Rubik's Cube Using Pattern Databases},
+year = {1997},
+isbn = {0262510952},
+publisher = {AAAI Press},
+abstract = {We have found the first optimal solutions to random instances of Rubik's Cube. The median optimal solution length appears to be 18 moves. The algorithm used is iterative-deepening-A* (IDA*), with a lower-bound heuristic function based on large memory-based lookup tables, or "pattern databases" (Culberson and Schaeffer 1996). These tables store the exact number of moves required to solve various subgoals of the problem, in this case subsets of the individual movable cubies. We characterize the effectiveness of an admissible heuristic function by its expected value, and hypothesize that the overall performance of the program obeys a relation in which the product of the time and space used equals the size of the state space. Thus, the speed of the program increases linearly with the amount of memory available. As computer memories become larger and cheaper, we believe that this approach will become increasingly cost-effective.},
+booktitle = {Proceedings of the Fourteenth National Conference on Artificial Intelligence and Ninth Conference on Innovative Applications of Artificial Intelligence},
+pages = {700–705},
+numpages = {6},
+location = {Providence, Rhode Island},
+series = {AAAI'97/IAAI'97}
+}
+
+%genetic style solver (ref to [1])
+@Inbook{Lichodzijewski2011,
+author="Lichodzijewski, Peter
+and Heywood, Malcolm",
+editor="Riolo, Rick
+and McConaghy, Trent
+and Vladislavleva, Ekaterina",
+title="The Rubik Cube and GP Temporal Sequence Learning: An Initial Study",
+bookTitle="Genetic Programming Theory and Practice VIII",
+year="2011",
+publisher="Springer New York",
+address="New York, NY",
+pages="35--54",
+abstract="The 3{\thinspace}{\texttimes}{\thinspace}3 Rubik cube represents a potential benchmark for temporal sequence learning under a discrete application domain with multiple actions. Challenging aspects of the problem domain include the large state space and a requirement to learn invariances relative to the specific colours present the latter element of the domain making it difficult to evolve individuals that learn `macro-moves' relative tomultiple cube configurations. An initial study is presented in thiswork to investigate the utility ofGenetic Programming capable of layered learning and problem decomposition. The resulting solutions are tested on 5,000 test cubes, of which specific individuals are able to solve up to 350 (7 percent) cube configurations and population wide behaviours are capable of solving up to 1,200 (24 percent) of the test cube configurations. It is noted that the design options for generic fitness functions are such that users are likely to face either reward functions that are very expensive to evaluate or functions that are very deceptive. Addressing this might well imply that domain knowledge is explicitly used to decompose the task to avoid these challenges. This would augment the described generic approach currently employed for Layered learning/ problem decomposition.",
+isbn="978-1-4419-7747-2",
+doi="10.1007/978-1-4419-7747-2_3",
+url="https://doi.org/10.1007/978-1-4419-7747-2_3"
+}
+
+%genetic style solver (ref to [1])
+@inproceedings{10.1145/2908812.2908887, 
+author = {Smith, Robert J. and Kelly, Stephen and Heywood, Malcolm I.},
+title = {Discovering Rubik's Cube Subgroups Using Coevolutionary GP: A Five Twist Experiment},
+year = {2016},
+isbn = {9781450342063},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2908812.2908887},
+doi = {10.1145/2908812.2908887},
+abstract = {This work reports on an approach to direct policy discovery (a form of reinforcement learning) using genetic programming (GP) for the 3 by 3 by 3 Rubik's Cube. Specifically, a synthesis of two approaches is proposed: 1) a previous group theoretic formulation is used to suggest a sequence of objectives for developing solutions to different stages of the overall task; and 2) a hierarchical formulation of GP policy search is utilized in which policies adapted for an earlier objective are explicitly transferred to aid the construction of policies for the next objective. The resulting hierarchical organization of policies explicitly demonstrates task decomposition and policy reuse. Algorithmically, the process makes use of a recursive call to a common approach for maintaining a diverse population of GP individuals and then learns how to reuse subsets of programs (policies) developed against the earlier objective. Other than the two objectives, we do not explicitly identify how to decompose the task or mark specific policies for reuse. Moreover, at the end of evolution we return a population solving 100\% of 17,675,698 different initial Cubes for the two objectives currently in use.},
+booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference 2016},
+pages = {789–796},
+numpages = {8},
+keywords = {games, genetic programming, reinforcement learning, coevolution, task transfer},
+location = {Denver, Colorado, USA},
+series = {GECCO '16}
+}
+
+
+@online{proj_l.hoang,
+author = {Hoang, L},
+title = {Optimally Solving a Rubik’s Cube Using
+Vision and Robotics},
+date = {2021-04-22},
+URL = {https://www.doc.ic.ac.uk/teaching/distinguished-projects/2015/l.hoang.pdf}
+}
+
+%SA source
+@article{SAarticle,
+author = {Lewis, Rhydian},
+year = {2007},
+month = {07},
+pages = {387-401},
+title = {Metaheuristics can solve Sudoku puzzles},
+volume = {13},
+journal = {J. Heuristics},
+doi = {10.1007/s10732-007-9012-8}
+}
+
+%AI BIBLE
+@book{10.5555/1671238,
+author = {Russell, Stuart and Norvig, Peter},
+title = {Artificial Intelligence: A Modern Approach},
+year = {2009},
+isbn = {0136042597},
+publisher = {Prentice Hall Press},
+address = {USA},
+edition = {3rd},
+abstract = { The long-anticipated revision of this \#1 selling book offers the most comprehensive, state of the art introduction to the theory and practice of artificial intelligence for modern applications. Intelligent Agents. Solving Problems by Searching. Informed Search Methods. Game Playing. Agents that Reason Logically. First-order Logic. Building a Knowledge Base. Inference in First-Order Logic. Logical Reasoning Systems. Practical Planning. Planning and Acting. Uncertainty. Probabilistic Reasoning Systems. Making Simple Decisions. Making Complex Decisions. Learning from Observations. Learning with Neural Networks. Reinforcement Learning. Knowledge in Learning. Agents that Communicate. Practical Communication in English. Perception. Robotics. For computer professionals, linguists, and cognitive scientists interested in artificial intelligence. }
+}
+
+%baseline implementation
+@misc{Shoukat2019,
+  author = {Shoukat, Farhan},
+  title = {Rubik's Cube Solver},
+  year = {2019},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/FarhanShoukat/Rubiks-Cube-Solver}},
+  commit = {a025187396fafc50d2e8eebc727495b27e4d9e06}
+}
+
+%Baseline 
+@article{KORF198597,
+title = {Depth-first iterative-deepening: An optimal admissible tree search},
+journal = {Artificial Intelligence},
+volume = {27},
+number = {1},
+pages = {97-109},
+year = {1985},
+issn = {0004-3702},
+doi = {https://doi.org/10.1016/0004-3702(85)90084-0},
+url = {https://www.sciencedirect.com/science/article/pii/0004370285900840},
+author = {Richard E. Korf},
+abstract = {The complexities of various search algorithms are considered in terms of time, space, and cost of solution path. It is known that breadth-first search requires too much space and depth-first search can use too much time and doesn't always find a cheapest path. A depth-first iterative-deepening algorithm is shown to be asymptotically optimal along all three dimensions for exponential tree searches. The algorithm has been used successfully in chess programs, has been effectively combined with bi-directional search, and has been applied to best-first heuristic search as well. This heuristic depth-first iterative-deepening algorithm is the only known algorithm that is capable of finding optimal solutions to randomly generated instances of the Fifteen Puzzle within practical resource limits.}
+}
+
+
+
+%Basil's Background
+
+
+@inproceedings{demaine2011algorithms,
+  author       = {Demaine, Erik D. and Demaine, Martin L. and Eisenstat, Sarah
+                  and Lubiw, Anna and Winslow, Andrew},
+  editor       = {Demetrescu, Camil and Halldórsson, Magnús M.},
+  title        = {Algorithms for Solving {Rubik's} Cubes},
+  booktitle    = {Algorithms -- ESA 2011},
+  booktitleaddon = {Proceedings of the 19th Annual European Symposium},
+  eventtitle   = {19th Annual European Symposium},
+  date         = {2011-09},
+  venue        = {Saarbrücken, Germany},
+  publisher    = {Springer-Verlag Berlin Heidelberg},
+  pages        = {689--700},
+  abstract     = {The Rubik's Cube is perhaps the world's most famous and iconic
+                  puzzle, well-known to have a rich underlying mathematical
+                  structure (group theory). In this paper, we show that the
+                  Rubik's Cube also has a rich underlying algorithmic
+                  structure. Specifically, we show that the n {\texttimes}n
+                  {\texttimes}n Rubik's Cube, as well as the n {\texttimes}n
+                  {\texttimes}1 variant, has a ``God's Number'' (diameter of the
+                  configuration space) of $\Theta$(n2/logn). The upper bound
+                  comes from effectively parallelizing standard $\Theta$(n2)
+                  solution algorithms, while the lower bound follows from a
+                  counting argument. The upper bound gives an asymptotically
+                  optimal algorithm for solving a general Rubik's Cube in the
+                  worst case. Given a specific starting state, we show how to
+                  find the shortest solution in an n {\texttimes}O(1)
+                  {\texttimes}O(1) Rubik's Cube. Finally, we show that finding
+                  this optimal solution becomes NP-hard in an n {\texttimes}n
+                  {\texttimes}1 Rubik's Cube when the positions and colors of
+                  some cubies are ignored (not used in determining whether the
+                  cube is solved).},
+  isbn         = {978-3-642-23719-5}
+}
+
+@inproceedings{korf1997finding,
+  author       = {Korf, Richard E.},
+  title        = {Finding Optimal Solutions to {Rubik's} Cube Using Pattern
+                  Databases},
+  date         = {1997-07},
+  isbn         = {978-0-262-51095-0},
+  publisher    = {AAAI Press},
+  abstract     = {We have found the first optimal solutions to random instances
+                  of Rubik's Cube. The median optimal solution length appears to
+                  be 18 moves. The algorithm used is iterative-deepening-A*
+                  (IDA*), with a lower-bound heuristic function based on large
+                  memory-based lookup tables, or "pattern databases" (Culberson
+                  and Schaeffer 1996). These tables store the exact number of
+                  moves required to solve various subgoals of the problem, in
+                  this case subsets of the individual movable cubies. We
+                  characterize the effectiveness of an admissible heuristic
+                  function by its expected value, and hypothesize that the
+                  overall performance of the program obeys a relation in which
+                  the product of the time and space used equals the size of the
+                  state space. Thus, the speed of the program increases linearly
+                  with the amount of memory available. As computer memories
+                  become larger and cheaper, we believe that this approach will
+                  become increasingly cost-effective.},
+  booktitle    = {AAAI-97},
+  booktitleaddon= {Proceedings of the Fourteenth National Conference on
+                  Artificial Intelligence},
+  pages        = {700--705},
+  venue        = {Providence, Rhode Island}
+}
+
+@article{marx1982rubiks,
+  doi          = {10.1088/0143-0807/3/1/010},
+  date         = {1982-01},
+  publisher    = {{IOP} Publishing},
+  volume       = {3},
+  number       = {1},
+  pages        = {39--43},
+  author       = {Marx, George and Gajzágó, Eva and Gnädig, Peter},
+  title        = {The universe of {Rubik's} cube},
+  journaltitle = {European Journal of Physics},
+  abstract     = {Rubik's cube offers an educational model to explore an unknown
+                  world in the physicist's way. Conservation rules follow from
+                  the laws of motion of the cube, which have decreased the
+                  number of allowed states but which make reaching a desired
+                  pattern more difficult. The large number of patterns suggests
+                  a statistical approach to express the irreversibility
+                  experienced by anyone dealing with the cube.}
+}
+
+
+
+@article{rokicki2014diameter,
+  author       = {Rokicki, Tomas and Kociemba, Herbert and Davidson, Morley and
+                  Dethridge, John},
+  title        = {The Diameter of the {Rubik's} Cube Group Is Twenty},
+  date         = {2014-01},
+  publisher    = {Society for Industrial and Applied Mathematics},
+  location     = {USA},
+  volume       = {56},
+  number       = {4},
+  issn         = {0036-1445},
+  doi          = {10.1137/140973499},
+  abstract     = {We give an expository account of our computational proof that
+                  every position of the Rubik's Cube can be solved in 20 moves
+                  or fewer, where a move is defined as any twist of any
+                  face. The roughly $4.3 \times 10^{19}$ positions are
+                  partitioned into about two billion cosets of a specially
+                  chosen subgroup, and the count of cosets required to be
+                  treated is reduced by considering symmetry. The reduced space
+                  is searched with a program capable of solving one billion
+                  positions per second, using about one billion seconds of CPU
+                  time donated by Google. As a byproduct of determining that the
+                  diameter is 20, we also find the exact count of cube positions
+                  at distance 15.},
+  journaltitle = {SIAM Rev.},
+  pages        = {645--670},
+  keywords     = {group theory, algorithm performance, Rubik's Cube}
+}
