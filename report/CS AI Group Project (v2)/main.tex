@@ -14,6 +14,7 @@
 \usepackage{wrapfig}
 \usepackage{subcaption}
 \usepackage{float}
+\usepackage{textcomp}
 
 % URLs
 \usepackage{url}
@@ -123,7 +124,7 @@ DRL + A$^{\ast}$ was selected as an investigation into the most modern approach 
 
 Overall, the proposed techniques comprise a decent and broad collection, and draw on a diverse set of approaches to solve one popular problem.
 
-It should be noted that an implementation~\cite{Shoukat2019} based the work of Korf~\cite{KORF198597} was used as a baseline for comparison in terms of runtime. It is important to note that this algorithm does rely on human knowledge however, and so acts not as a baseline to beat necessarily, but a good comparison between the agents which do not have human knowledge, and those that do.
+It should be noted that an implementation~\cite{Shoukat2019} based the work of Korf~\cite{KORF198597} was used as a baseline for comparison in terms of runtime. It is important to note that this algorithm does rely on human (domain) knowledge however, and so acts not as a baseline to beat necessarily, but a good comparison between the agents which do not have human knowledge, and those that do.
 
 %In this section you will discuss possible approaches to solve the problem you are addressing, justifying your choice of the 3 you have selected to evaluate. Also, briefly introduce the approaches you are evaluating with a specific emphasis on differences and similarities to the proposed approach(es).
 
@@ -151,31 +152,27 @@ The other component of the A$^{\ast}$ cost function, the cost from the starting 
 
 The applications of GA to solve Rubik's Cubes in the literature were based on an analytical solution. The analytical solution broke the method into four distinct parts, based on human knowledge, and so the GA approach utilised these conditions as waypoints between the evolution of population. GA define populations as a set of approximate solutions, with each individual representing one such attempt. Certain individuals are better suited to meeting fitness criteria (i.e. how well a solution conforms to the required behaviour) and so upon the passage of a generation, individuals with better fitness have a higher probability to reproduce, creating a new individual with characteristics from two previous approximations. However, reproduction is not the only way in which the population evolves. Concepts of mutation and elitism allow for the propagation of individuals with desirable traits as well. Overall, the passage from one generation to the next is composed of 40\% offspring, 50\% by mutation and 10\% by elitism. Offspring come about based on the previous notion of reproduction, whilst mutants are the result of lone individuals experiencing a number of small move alterations, and elitism allows for the propagation of the portion of the population that was judged to be most fit. The elites are selected from the best population that did not produce offspring, as to give them another chance to reproduce.
 
-The idea is that these new individuals will possess a combination of attributes that allow them to satisfy the fitness function even better, in turn increasing the chance of their characteristics being passed along. In this manner than mimics natural selection, over a number of generations it becomes possible to arrive at a population that contains individuals which satisfy the fitness criteria perfectly at which point a solution has been reached.
+The idea is that these new individuals will possess a combination of attributes that allow them to satisfy the fitness function even better, in turn increasing the chance of their characteristics being passed along. In this manner that mimics natural selection, over a number of generations it becomes possible to arrive at a population that contains individuals which satisfy the fitness criteria perfectly, at which point a solution has been reached.
 
 In this investigation, GA were used to solve a Rubik's Cube without human knowledge. The analytical solution modified the fitness criteria at different stages, in accordance with the Thistlethwaite methods, such that the direction of evolution was modified to become increasingly adept at solving the Rubik's Cube in a low number of steps.  This particular implementation however did not alter the cost function at any point, and so the GA could only act to minimise the following cost function:
-\[
-    \text{All elements of a row} 
-    \begin{cases} 
-      +0 & \text{all colours uniform} \\
-      +1 & \text{all colours not uniform}
-   \end{cases}
-\]
-\[
-   \text{All elements of a column} 
-    \begin{cases} 
-      +0 & \text{all colours uniform} \\
-      +1 & \text{all colours not uniform}
-   \end{cases}
-\]
-\[
-   \text{All elements of a face} 
-    \begin{cases} 
-      +0 & \text{all colours uniform} \\
-      +1 & \text{all colours not uniform}
-   \end{cases}
-\]
-These cost conditions were used to calculate the cost on each face, which in turn were used to determine the cost of the overall cube. For example, whilst a cost 0 cube gives a completely solved system, a cost 12 cube implies that the cube may be at most a half-turn (180$^{\circ}$) away from a solution. 
+\begin{align*}
+  \text{All elements of a row} &
+  \begin{cases}
+    +0 & \text{all colours uniform} \\
+    +1 & \text{all colours not uniform}
+  \end{cases} \\
+  \text{All elements of a column} &
+  \begin{cases}
+    +0 & \text{all colours uniform} \\
+    +1 & \text{all colours not uniform}
+  \end{cases} \\
+  \text{All elements of a face} &
+  \begin{cases}
+    +0 & \text{all colours uniform} \\
+    +1 & \text{all colours not uniform}
+  \end{cases}
+\end{align*}
+These cost conditions were used to calculate the cost on each face, which in turn were used to determine the cost of the overall cube. For example, whilst a cost~0 cube gives a completely solved system, a cost~12 cube implies that the cube may be at most a half-turn (180\textdegree) away from a solution.
 
 \subsection{Simulated Annealing}
 
