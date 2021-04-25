@@ -1,0 +1,180 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title[25/04/21] %optional
+{Rubik’s Cube: Artificially Intelligent Solvers}
+
+%\subtitle{A short story}
+
+\author[O'Sullivan, William] % (optional)
+{W.~O'Sullivan\inst{1} \and B.~ Contovounesios\inst{2} \and T.~Ijaz\inst{3} \and F.~\'O Suibhne\inst{1}}
+
+\institute[TCD] % (optional)
+{
+  \inst{1}%
+  High Performance Computing MSc.\\
+  School of Maths
+  \and
+  \inst{2}%
+  Integrated Computer Science BA \& MCS\\
+  School of Computer Science \& Statistics
+  \and
+  \inst{3}%
+  Computer Science: Intelligent Systems MSc\\
+  School of Computer Science \& Statistics
+}
+
+\date[CS7IS2 Project Presentation] % (optional)
+{Trinity College Dublin}
+
+
+\AtBeginSection[]
+%{
+ % \begin{frame}
+  %  \frametitle{Table of Contents}
+   % \tableofcontents[currentsection]
+ % \end{frame}
+%}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{The Rubik's Cube}
+\begin{itemize}
+    \item A Rubik's Cube is a 3x3x3 set of 26 "cubies", the small constituent cubes on the face of the object. The cubies can pivot about the centre of the cube, and the faces can be manipulated by rotation.
+
+\begin{figure}[!h]
+\begin{small}
+\centering
+\linespread{1.0}
+\includegraphics[width=0.35\linewidth]{images/800px-Scrumbled_Rubik's_Cube.jpg}
+\caption{A timeless classic!}
+\label{fig:fig10}
+\end{small}
+\end{figure}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The Rubik's Cube}
+\begin{itemize}
+    \item The Rubik's Cube remains a popular puzzle to this day, and whilst the cube has been solved analytically, it still serves as a fascinating problem for those of us concerned with how artificially intelligent agents solve problems.
+    \item Our research has specifically examined methods for solving Rubik's Cubes (and its simpler 2x2x2 sibling the Pocket Cube) that do not rely on human knowledge. That means that we only establish the conditions of the state space and cost functions for the respective techniques, but we do not avail of analytical solutions to the cube.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Deep Reinforcement Learning w/ A$^\ast$ Search}
+\begin{itemize}
+    \item Reinforcement Learning (RL) involves exploring state spaces in order to determine optimal policies for maximising rewards. Deep Reinforcement Learning (DRL) is able to combine and interpret inputs to explore state spaces more efficiently.
+    \item Whilst DRL certainly reduces the number of state spaces that an agent has to explore (the Rubik's Cube contains $ > 10^{19}$ unique states, and only one solution state), the sparsity of the state space means reaching the goal state must be in some way guaranteed.
+    \item Autodidactic Iteration is the process whereby a solved cube is scrambled, the according moves recorded, and the move list and scrambled state are used as an input for the DRL training. This ensures that the goal state can always be reached, ultimately resulting in the solver learning how to design policies which solve the cube faster.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Deep Reinforcement Learning w/ A$^\ast$ Search}
+\begin{itemize}
+    \item The actual solution of the cube is then performed using a weighted A$^\ast$ Search, using the trained model to create a lookup table of moves that the search can apply.
+    \item At each node, the successors are examined to see which node presents the lowest total cost according to both the cost between nodes and the cost given by the heuristic. 
+    \item This corresponds to building out a policy of the fewest moves, with different weightings determining whether approximate solutions are prioritised earlier or whether much closer solutions are favoured albeit further down the line. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Genetic Algorithms}
+\begin{itemize}
+    \item Genetic Algorithms (GA) work on a process that mimics Natural Selection, whereby individuals (that together create a population) represent approximate solutions. Over generations, through reproduction, mutation or simply being "well-suited", individuals are able to pass along their characteristics.
+\end{itemize}
+
+\begin{figure}[!h]
+\begin{small}
+\centering
+\linespread{1.0}
+\includegraphics[width=0.75\linewidth]{images/genetic algorithm.PNG}
+%\caption{Over several generations an individual that best satisfies the fitness criteria emerges. In our case, that means minimising a cost function.}
+\label{fig:fig10}
+\end{small}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Genetic Algorithms}
+\begin{itemize}
+    \item Reproduction accounts for 40\% of the population. Individuals with a good fitness have a higher chance of reproducing, and this entails two parents coming together and each having half of their characteristics go on to form a new individual. In the context of solving Rubik's Cubes, this means mixing together their moves to form a new policy.
+    \item Mutation accounts for 50\% of the population whereby an individual can undergo a change in a small number of the moves in their policy, and in random locations.
+    \item Finally, 10\% of the population who are of the highest fitness persist into the next generation, to give them an additional chance to pass along their satisfactory characteristics.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Simulated Annealing}
+\begin{itemize}
+    \item Simulated Annealing (SA) is an approach that combines a stochastic method with an iterative improvement algorithm. By moving from a higher randomness state to a lower randomness state over time, the algorithm converges to produce a solved cube.
+\end{itemize}
+
+\begin{figure}[!h]
+\begin{small}
+\centering
+\linespread{1.0}
+\includegraphics[width=0.75\linewidth]{images/simulated annealing.PNG}
+%\caption{Over several generations an individual that best satisfies the fitness criteria emerges. In our case, that means minimising a cost function.}
+\label{fig:fig11}
+\end{small}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Simulated Annealing}
+\begin{itemize}
+    \item SA is an approach originally designed to model (you guessed it) annealing, whereby a material, typically a metal, is heated to relieve stress. It is then cooled gradually to allow new structures to form such that the ductility is increased - a preferable configuration.
+    \item It is in this way that we treat the Rubik's cube solver, whereby we start with a "high-temperature" system and as the system cools according to a specified cooling rate, configurations of moves which minimise the cost-function arise. 
+    \item If the system does not converge, it undergoes a reheating, whereby the cooling resumes from a temperature slightly above the end temperature. This cooling and reheating allows for the last few degenerate states to resolve and achieve a true global minimisation of the cost function.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Findings}
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\begin{figure}[!h]
+\begin{small}
+\centering
+\linespread{1.0}
+\includegraphics[width=0.75\linewidth]{images/pict1_graph.C.png}
+%\caption{Over several generations an individual that best satisfies the fitness criteria emerges. In our case, that means minimising a cost function.}
+\label{fig:fig11}
+\end{small}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Findings}
+\begin{itemize}
+    \item 
+    \item 
+    \item
+\end{itemize}
+
+\end{frame}
+
+\end{document}
