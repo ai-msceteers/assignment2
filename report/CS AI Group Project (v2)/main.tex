@@ -1,4 +1,4 @@
-\documentclass[UKenglish]{libraries/svproc}
+\documentclass[UKenglish]{svproc}
 
 % Localisation
 \usepackage{babel}
@@ -51,7 +51,7 @@ An investigation into solving Rubik's Cubes by applying the following AI strateg
     \item Deep Reinforcement Learning + A$^{\ast}$ Search (DRL + A$^{\ast}$)
     \item Simulated Annealing (SA)
 \end{itemize}
-These approaches were used in order to determine solutions to a 2-by-2-by-2 ($n=2$) "Pocket Cube" and a classic 3-by-3-by-3 ($n=3$) Rubik's Cube.
+These approaches were used in order to determine solutions to a $2\times 2\times 2$ ($n=2$) ``Pocket Cube'' and a classic $3\times 3\times 3$ ($n=3$) Rubik's Cube.
 
 The techniques broadly met with success, with every technique achieving a solution for a randomised cube. Times taken to solve each configuration varied between each instance, as did the number of turns required by each method to reach a solution. The DRL + A$^{\ast}$ method required the most up-front time due to its training component, but it 
 %Can discuss #of turns taken to solve, time to solve, etc.
@@ -90,17 +90,15 @@ Your report should provide a survey and an experimental comparison of multiple s
 \section{Introduction}
 %WRITING HERE
 \subsection{Motivation}
-1974 saw many historical events, including the election of the first female President of Argentina and ABBA's victory at the Eurovision with their iconic hit "Waterloo". 1974 also bore witness to the invention of the Rubik's Cube, a puzzle which has been in the minds of both pure mathematicians and computer scientists alike for decades. Whilst the puzzle has now been bested (even giving rise to the phenonmenon of Speedcubing!) it still serves as region of interest in fields where there is more concern for the method of solution.
-
-\hspace{8pt}
+1974 saw many historical events, including the election of the first female President of Argentina and ABBA's victory at the Eurovision with their iconic hit ``Waterloo''. 1974 also bore witness to the invention of the Rubik's Cube, a puzzle which has been in the minds of both pure mathematicians and computer scientists alike for decades. Whilst the puzzle has now been bested (even giving rise to the phenonmenon of Speedcubing!) it still serves as region of interest in fields where there is more concern for the method of solution.\\
 
 Puzzles have long been a useful tool for examining the utility of artificial intelligence. Puzzles provide us with what would be considered an intellectual challenge, and creating agents that can produce solutions to puzzles can give us greater insight into both the limitations of such intelligences, as well as their strengths highlighting key areas where AI may find further use.
 
-In the specific case of this investigation, we examine different agents for the problem of solving a Rubik's Cube, or indeed its smaller cousin the 2x2x2 Pocket Cube, which will generally be described in the same way as it is simply a variant with a smaller state space. This particular puzzle sits at a cross-roads in terms of analysis. The Rubik's Cube is by no means a trivial pathfinding algorithm owing to the importance of move order but neither is it a puzzle without a known solution. That said, the Rubik's Cube itself only represents one member of a family of similar puzzles, for example higher dimensional 2x2x2x2 objects, or longer sided 4x4x4 cubes. A number of researchers have spent time investigating different methods of solving the cube via these intelligent agents only for some to determine that their approach does not suit the Rubik's Cube, whilst others meet with successful solutions.
+In the specific case of this investigation, we examine different agents for the problem of solving a Rubik's Cube, or indeed its smaller cousin the $2\times 2\times 2$ Pocket Cube, which will generally be described in the same way as it is simply a variant with a smaller state space. This particular puzzle sits at a cross-roads in terms of analysis. The Rubik's Cube is by no means a trivial pathfinding algorithm owing to the importance of move order but neither is it a puzzle without a known solution. That said, the Rubik's Cube itself only represents one member of a family of similar puzzles, for example higher dimensional $2\times 2\times 2\times 2$ objects, or longer sided $4\times 4\times 4$ cubes. A number of researchers have spent time investigating different methods of solving the cube via these intelligent agents only for some to determine that their approach does not suit the Rubik's Cube, whilst others meet with successful solutions.
 
-At the outset, it was not expected that all of the approaches would yield perfect solutions to the Rubik's Cube. The heart of the investigation is built around understanding the methods and their applications in order to solve problems of this type, and this report will endeavour to share those findings accordingly. 
+At the outset, it was not expected that all of the approaches would yield perfect solutions to the Rubik's Cube. The heart of the investigation is built around understanding the methods and their applications in order to solve problems of this type, and this report will endeavour to share those findings accordingly.
 
-$NOTE: INCLUDE ONE\_DRIVE LINK$
+\emph{NOTE: INCLUDE ONE\_DRIVE LINK}
 
 
 \iffalse
@@ -111,15 +109,19 @@ This section should also contain the link to the recording of your presentation 
 \fi
 
 \section{Related Work}
-In keeping with the directive that the focus of the investigation should be on recent solutions of this field of problem, one group have been quite prolific in their publications on Rubik's Cube solvers in particular. The work of Stephen McAleer, Forest Agostinelli, Alexander Shmakov and Pierre Baldi~\cite{mcaleer2018solving, mcaleer2019solving, agostinelli2019solving} formed a consistent basis of understanding for the Rubik's Cube problem as a whole, whilst also drawing attention to the use of Deep Reinforcement Learning centred around their DeepCube solver. It was possible for the researchers to use the policies determined by DRL with different search approaches, including the Monte Carlo Tree Search (MCTS) and A$^{\ast}$ Search.
+In keeping with the directive that the focus of the investigation should be on recent solutions of this field of problem, one group have been quite prolific in their publications on Rubik's Cube solvers in particular. The work of Stephen McAleer, Forest Agostinelli, Alexander Shmakov and Pierre Baldi~\cite{mcaleer2018solving, mcaleer2019solving, agostinelli2019solving} formed a consistent basis of understanding for the Rubik's Cube problem as a whole, whilst also drawing attention to the use of Deep Reinforcement Learning centred around their DeepCube solver. It was possible for the researchers to use the policies determined by DRL with different search approaches, including Monte Carlo Tree Search (MCTS) and A$^{\ast}$ Search.
 
-Beyond the use of DRL however, lay two other approaches which draw influence from biology and physics, in Genetic Algorithms and Simulated Annealing respectively.
+Beyond the use of DRL, however, lay two other approaches which draw influence from biology and physics, in Genetic Algorithms and Simulated Annealing respectively.
 
 Genetic Algorithms are a way of generating increasingly close approximations to a solution, to the point where a solution itself is achieved. The work of El-Sourani et al.~\cite{10.1007/978-3-642-12239-2_9} utilised GA to solve a Rubik's Cube by incorporating the analytical solution to a Rubik's Cube based on the original work by Thistlethwaite~\cite{Thistlethwaite}. Whilst this technique resulted in solutions for any given cube configuration, Smith et al.~\cite{10.1145/2908812.2908887} attempted to build on this by determining policies with their GA rather than determining configuration-unique solutions, ultimately meeting with a great degree of success.
 
-Simulated Annealing is a kind of random search method not unlike the aforementioned Monte Carlo Tree Search, however it possesses an additional strength in that it is also an iterative improvement algorithm. This means that the SA approach is able to escape local minima/maxima, whilst consistently improving performance. SA has seen use in solving Sudoku puzzles, as in the work of Lewis~\cite{SAarticle}, and indeed SA could be applied to solving Rubik's cubes by tweaking how the cost function is determined.
+Simulated Annealing is a kind of random search method not unlike the aforementioned MCTS, however it possesses an additional strength in that it is also an iterative improvement algorithm. This means that the SA approach is able to escape local extrema, whilst consistently improving performance. SA has seen use in solving Sudoku puzzles, as in the work of Lewis~\cite{SAarticle}, and indeed SA could be applied to solving Rubik's Cubes by tweaking how the cost function is determined.
 
-Between the applications of DRL + MCST, DRL + A$^{\ast}$, GA for values, GA for polices and SA a decision was made to investigate the properties of DRL + A$^{\ast}$, GA for values, and SA. \par DRL + A$^{\ast}$ was selected as an investigation into the most modern approach to solving Rubik's Cubes. GA for values would allow for investigation of the differences between performance on $n=2$ and $n=3$ cubes without the added complexity of trying to determine policies for the different sized cubes. Finally, SA was selected in order to examine the effects of stochastic solvers in Rubik's Cubes, which had been scarcely investigated. \par Overall, the proposed techniques would span a nice collection of techniques, drawing on a diverse set of approaches to solve one popular problem.
+Between the applications of DRL + MCTS, DRL + A$^{\ast}$, GA for values, GA for policies and SA, a decision was made to investigate the properties of DRL + A$^{\ast}$, GA for values, and SA.
+
+DRL + A$^{\ast}$ was selected as an investigation into the most modern approach to solving Rubik's Cubes. GA for values would allow for investigation of the differences between performance on $n=2$ and $n=3$ cubes without the added complexity of trying to determine policies for the different sized cubes. Finally, SA was selected in order to examine the effects of stochastic solvers in Rubik's Cubes, which had been scarcely investigated.
+
+Overall, the proposed techniques comprise a decent and broad collection, and draw on a diverse set of approaches to solve one popular problem.
 
 It should be noted that an implementation~\cite{Shoukat2019} based the work of Korf~\cite{KORF198597} was used as a baseline for comparison in terms of runtime. It is important to note that this algorithm does rely on human knowledge however, and so acts not as a baseline to beat necessarily, but a good comparison between the agents which do not have human knowledge, and those that do.
 
