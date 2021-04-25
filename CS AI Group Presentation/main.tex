@@ -9,12 +9,12 @@
 %This block of code defines the information to appear in the
 %Title page
 \title[25/04/21] %optional
-{Rubik’s Cube: Artificially Intelligent Solvers}
+{Rubik's Cube: Artificially Intelligent Solvers}
 
 %\subtitle{A short story}
 
 \author[O'Sullivan, William] % (optional)
-{W.~O'Sullivan\inst{1} \and B.~ Contovounesios\inst{2} \and T.~Ijaz\inst{3} \and F.~\'O Suibhne\inst{1}}
+{W.~O'Sullivan\inst{1} \and B.~Contovounesios\inst{2} \and T.~Ijaz\inst{3} \and F.~\'O Suibhne\inst{1}}
 
 \institute[TCD] % (optional)
 {
@@ -50,13 +50,13 @@
 \begin{frame}
 \frametitle{The Rubik's Cube}
 \begin{itemize}
-    \item A Rubik's Cube is a 3x3x3 set of 26 "cubies", the small constituent cubes on the face of the object. The cubies can pivot about the centre of the cube, and the faces can be manipulated by rotation.
+    \item A Rubik's Cube is a $3\times 3\times 3$ set of 26 ``cubies'', the small constituent cubes on the face of the object. The cubies can pivot about the centre of the cube, and the faces can be manipulated by rotation.
 
 \begin{figure}[!h]
 \begin{small}
 \centering
 \linespread{1.0}
-\includegraphics[width=0.35\linewidth]{images/800px-Scrumbled_Rubik's_Cube.jpg}
+\includegraphics[width=0.35\linewidth]{images/800px-Scrumbled_Rubik's_Cube}
 \caption{A timeless classic!}
 \label{fig:fig10}
 \end{small}
@@ -70,7 +70,7 @@
 \frametitle{The Rubik's Cube}
 \begin{itemize}
     \item The Rubik's Cube remains a popular puzzle to this day, and whilst the cube has been solved analytically, it still serves as a fascinating problem for those of us concerned with how artificially intelligent agents solve problems.
-    \item Our research has specifically examined methods for solving Rubik's Cubes (and its simpler 2x2x2 sibling the Pocket Cube) that do not rely on human knowledge. That means that we only establish the conditions of the state space and cost functions for the respective techniques, but we do not avail of analytical solutions to the cube.
+    \item Our research has specifically examined methods for solving Rubik's Cubes (and its simpler $2\times 2\times 2$ sibling the Pocket Cube) that do not rely on human knowledge. That means that we only establish the conditions of the state space and cost functions for the respective techniques, but we do not avail of analytical solutions to the cube.
 \end{itemize}
 
 \end{frame}
@@ -96,16 +96,16 @@
 \begin{frame}
 \frametitle{Genetic Algorithms}
 \begin{itemize}
-    \item Genetic Algorithms (GA) work on a process that mimics Natural Selection, whereby individuals (that together create a population) represent approximate solutions. Over generations, through reproduction, mutation or simply being "well-suited", individuals are able to pass along their characteristics.
+    \item Genetic Algorithms (GA) work on a process that mimics Natural Selection, whereby individuals (that together create a population) represent approximate solutions. Over generations, through reproduction, mutation or simply being ``well-suited'', individuals are able to pass along their characteristics.
 \end{itemize}
 
 \begin{figure}[!h]
 \begin{small}
 \centering
 \linespread{1.0}
-\includegraphics[width=0.75\linewidth]{images/genetic algorithm.PNG}
+\includegraphics[width=0.75\linewidth]{images/genetic algorithm}
 %\caption{Over several generations an individual that best satisfies the fitness criteria emerges. In our case, that means minimising a cost function.}
-\label{fig:fig10}
+\label{fig:fig11}
 \end{small}
 \end{figure}
 
@@ -131,9 +131,9 @@
 \begin{small}
 \centering
 \linespread{1.0}
-\includegraphics[width=0.75\linewidth]{images/simulated annealing.PNG}
+\includegraphics[width=0.75\linewidth]{images/simulated annealing}
 %\caption{Over several generations an individual that best satisfies the fitness criteria emerges. In our case, that means minimising a cost function.}
-\label{fig:fig11}
+\label{fig:fig12}
 \end{small}
 \end{figure}
 
@@ -143,7 +143,7 @@
 \frametitle{Simulated Annealing}
 \begin{itemize}
     \item SA is an approach originally designed to model (you guessed it) annealing, whereby a material, typically a metal, is heated to relieve stress. It is then cooled gradually to allow new structures to form such that the ductility is increased - a preferable configuration.
-    \item It is in this way that we treat the Rubik's cube solver, whereby we start with a "high-temperature" system and as the system cools according to a specified cooling rate, configurations of moves which minimise the cost-function arise. 
+    \item It is in this way that we treat the Rubik's Cube solver, whereby we start with a ``high-temperature'' system and as the system cools according to a specified cooling rate, configurations of moves which minimise the cost-function arise.
     \item If the system does not converge, it undergoes a reheating, whereby the cooling resumes from a temperature slightly above the end temperature. This cooling and reheating allows for the last few degenerate states to resolve and achieve a true global minimisation of the cost function.
 \end{itemize}
 
@@ -159,9 +159,9 @@
 \begin{small}
 \centering
 \linespread{1.0}
-\includegraphics[width=0.75\linewidth]{images/pict1_graph.C.png}
+\includegraphics[width=0.75\linewidth]{images/pict1_graph.C}
 %\caption{Over several generations an individual that best satisfies the fitness criteria emerges. In our case, that means minimising a cost function.}
-\label{fig:fig11}
+\label{fig:fig13}
 \end{small}
 \end{figure}
 
