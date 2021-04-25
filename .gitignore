@@ -6,8 +6,11 @@
 *.fdb_latexmk
 *.fls
 *.log
+*.nav
 *.out
 *.run.xml
+*.snm
+*.toc
 *.xdv
 _minted-*/
 auto/
