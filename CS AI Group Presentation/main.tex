@@ -79,7 +79,7 @@
 \frametitle{Deep Reinforcement Learning w/ A$^\ast$ Search}
 \begin{itemize}
     \item Reinforcement Learning (RL) involves exploring state spaces in order to determine optimal policies for maximising rewards. Deep Reinforcement Learning (DRL) is able to combine and interpret inputs to explore state spaces more efficiently.
-    \item Whilst DRL certainly reduces the number of state spaces that an agent has to explore (the Rubik's Cube contains $ > 10^{19}$ unique states, and only one solution state), the sparsity of the state space means reaching the goal state must be in some way guaranteed.
+    \item Whilst DRL certainly reduces the number of states that an agent has to explore (the Rubik's Cube contains $ > 10^{19}$ unique states, and only one solution state), the sparsity of the state space means reaching the goal state must be in some way guaranteed.
     \item Autodidactic Iteration is the process whereby a solved cube is scrambled, the according moves recorded, and the move list and scrambled state are used as an input for the DRL training. This ensures that the goal state can always be reached, ultimately resulting in the solver learning how to design policies which solve the cube faster.
 \end{itemize}
 \end{frame}
@@ -87,7 +87,7 @@
 \begin{frame}
 \frametitle{Deep Reinforcement Learning w/ A$^\ast$ Search}
 \begin{itemize}
-    \item The actual solution of the cube is then performed using a weighted A$^\ast$ Search, using the trained model to create a lookup table of moves that the search can apply.
+    \item The actual solution of the cube is then performed using a weighted A$^\ast$ Search, using the trained model as a heuristic for the distance of a given state from the goal state.
     \item At each node, the successors are examined to see which node presents the lowest total cost according to both the cost between nodes and the cost given by the heuristic. 
     \item This corresponds to building out a policy of the fewest moves, with different weightings determining whether approximate solutions are prioritised earlier or whether much closer solutions are favoured albeit further down the line. 
 \end{itemize}
