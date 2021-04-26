@@ -33,10 +33,9 @@ project.
 
 1. William O'Sullivan
 
-   Responsible for leading the team and putting together the report and
-   presentation.  To this end, researched all of the topics both in
-   collaboration with the rest of the team, and as extensive personal literature
-   review.
+   Responsible for leading the team and creating the report and presentation.
+   To this end, researched all of the topics both in collaboration with the rest
+   of the team, and as extensive personal literature review.
 
 2. Talha Ijaz
 
