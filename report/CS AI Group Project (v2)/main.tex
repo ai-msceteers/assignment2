@@ -144,7 +144,7 @@ The other component of the A$^{\ast}$ cost function, the cost from the starting 
 \begin{small}
 \centering
 \linespread{1.0}
-\includegraphics[width=0.75\linewidth]{images/genetic algorithm}
+\includegraphics[width=0.9\linewidth]{images/genetic-algorithm}
 \caption{Genetic Algorithms utilise reproduction, whereby a parent passes its characteristics onto its child. Over several generations an individual that better satisfies the fitness criteria emerges~\cite{10.5555/1671238}.}
 \label{fig:fig0}
 \end{small}
@@ -180,13 +180,13 @@ These cost conditions were used to calculate the cost on each face, which in tur
 \begin{small}
 \centering
 \linespread{1.0}
-\includegraphics[width=0.75\linewidth]{images/simulated annealing}
+\includegraphics[width=0.9\linewidth]{images/simulated-annealing}
 \caption{By slowly approaching a solution state using a controlled stochastic method, Simulated Annealing results in a solved system~\cite{10.5555/1671238}.}
 \label{fig:fig1}
 \end{small}
 \end{figure}
 
-SA begins as a process with an initial random state with a corresponding initial ``temperature''. This temperature affects the probability of accepting unfavourable moves that diminish the overall fitness of the current state. Whilst this may sound counter-productive, it is very important for preventing the Rubik's Cube from becoming stuck in a degenerate state, whereby it is unable to access moves that would diminish the cost function even further than the present state. This is a critical aspect of solving the puzzle on account of the fact that moves in Rubik's Cubes are non-commutative, that is to say, a move left followed by a move up is not identical to a move up followed by a move left. After a number of moves have occurred, the temperature begins to decrease, reducing the probabilities of accepting less favourable moves. This process continues until the system ``cools'' and either a solution has been reached, or the system is then ``reheated'' in a bid to shuffle around moves and solve the cube outright. Having specified parameters such as the initial temperature of the system and the cooling rate of the system, it was possible to investigate the effects of modifying these parameters to see whether a solution would successfully converge or not.
+SA begins as a process with an initial random state with a corresponding initial ``temperature''. This temperature affects the probability of accepting unfavourable moves that diminish the overall fitness of the current state. Whilst this may sound counter-productive, it is very important for preventing the Rubik's Cube from becoming stuck in a degenerate state, whereby it is unable to access moves that would diminish the cost function even further than the present state. This is a critical aspect of solving the puzzle on account of the fact that moves in Rubik's Cubes are non-commutative, that is to say, a move left followed by a move up is not identical to a move up followed by a move left. After a number of moves have occurred, the temperature begins to decrease, reducing the probabilities of accepting less favourable moves. This process continues until the system ``cools'' and either a solution has been reached, or the system is then ``reheated'' in a bid to shuffle around moves and solve the cube outright. Having specified parameters such as the initial temperature and cooling rate of the system, it was possible to investigate the effects of modifying these parameters to see whether a solution would successfully converge or not.
 
 %This section formalises the problem you are addressing and the models used to solve it. This section should provide a technical discussion of the chosen/implemented algorithms. A pseudocode description of the algorithm(s) can also be beneficial to a clear explanation. It is also possible to provide one example that clarifies the way an algorithm works. It is important to highlight in this section the possible parameters involved in the model and their impact, as well as all the implementation choices that can impact the algorithm.
 
@@ -211,7 +211,7 @@ Before any algorithms could be applied a test environment had to be constructed.
 \begin{small}
 \centering
 \linespread{1.0}
-\includegraphics[width=0.75\linewidth]{images/move_3u}
+\includegraphics[width=0.3\linewidth]{images/move_3u}
 \caption{Taking the nearer (highlighted) face as the frame of reference, this particular transformation would be described as a $[2,u]$ move. Using index notation, the third column of the face is rotated upwards by 90$^{\circ}$~\cite{proj_l.hoang}.}
 \label{fig:fig2}
 \end{small}
