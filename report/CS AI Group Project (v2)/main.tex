@@ -16,6 +16,10 @@
 \usepackage{float}
 \usepackage{textcomp}
 
+% Tables
+\usepackage{ctable}
+\setupctable{botcap}
+
 % URLs
 \usepackage{url}
 \urlstyle{rm}
@@ -197,12 +201,12 @@ SA begins as a process with an initial random state with a corresponding initial
 \subsection{Methodology}
 The solutions to both the Pocket Cube ($n=2$) and Rubik's Cube ($n=3$) were evaluated using two general criteria where they could be applied, counting the number of moves that a method took to reach a solution, and measuring the time taken for an individual solution to a newly randomised cube.
 
-Whilst the DRL + A$^{\ast}$ solution for the $n=2$ and $n=3$ cubes were built upon the existing DeepCube environment, in which the notion of a Rubik's Cube was never explicitly defined, the GA and SA approaches required a test environment in which a cube could be evaluated in terms of cost and solution.
+Whilst the DRL + A$^{\ast}$ solution for the $n=2$ and $n=3$ cubes was built upon the existing DeepCube environment, the GA and SA approaches required a custom test environment in which a cube could be evaluated in terms of cost and solution.
 
 \subsubsection{Shared Basis for GA and SA}
 Before any algorithms could be applied a test environment had to be constructed. A \verb|RubiksCube| object was constructed containing several features:
 \begin{itemize}
-    \item A method for determining the current 'cost' of the cube. A solved Rubik's Cube would have a cost of 0, with displacement from a solved state resulting in an increased cost which scaled with $n$, the dimension of the cube. The specific way in which cost was determined was then unique for each technique.
+    \item A method for determining the current `cost' of the cube. A solved Rubik's Cube would have a cost of 0, with displacement from a solved state resulting in an increased cost which scaled with $n$, the dimension of the cube. The specific way in which cost was determined was then unique for each technique.
     \item A method to generate a random move, and from that a method to randomise the cube itself. This would allow the cube to initialise into a state following 30 to 40 randomisation operations.
     \item A method to apply either the random moves or a set of moves specified by the agent. Moves would be entered as a combination of a row/column specifier and a direction declaration.
 \end{itemize}
@@ -211,8 +215,8 @@ Before any algorithms could be applied a test environment had to be constructed.
 \begin{small}
 \centering
 \linespread{1.0}
-\includegraphics[width=0.3\linewidth]{images/move_3u}
-\caption{Taking the nearer (highlighted) face as the frame of reference, this particular transformation would be described as a $[2,u]$ move. Using index notation, the third column of the face is rotated upwards by 90$^{\circ}$~\cite{proj_l.hoang}.}
+\includegraphics[width=0.2\linewidth]{images/move_3u}
+\caption{Taking the nearer (highlighted) face as the frame of reference, this particular transformation would be described as a $[2,u]$ move. Using index notation, the third column of the face is rotated upwards by 90\textdegree~\cite{proj_l.hoang}.}
 \label{fig:fig2}
 \end{small}
 \end{figure}
@@ -221,43 +225,21 @@ This cube could be manipulated, as in Figure~\ref{fig:fig2} by an agent in order
 
 \subsection{Results}
 
-The following tables contain the mean runtime and the mean number of moves for solving both the Pocket Cube and Rubik's Cube, over what were considered idealised parameters.
+Table~\ref{tab:res} presents the mean runtime and the mean number of moves for solving both the Pocket Cube and Rubik's Cube, over what were considered idealised parameters.
 
-\vspace{8pt}
-{\centering
-\resizebox{\linewidth}{!}{%
-\begin{tabular}{||c||c|c|c|c|}
-\hline
-    $\text{n=2}$ & $\text{DRL + A}^{\ast}$ & \hspace{11pt} $\text{GA}$ \hspace{11pt}  & \hspace{11pt} $\text{SA}$ \hspace{11pt} & $\text{Baseline}$ \\
- \hline
- Runtime (s) & 3.1 & 0 & 0 & 10\\ %[0.5ex]
- \hline
- \# of Moves & 9.8 & 0 & 0 & 17\\
- \hline
-\end{tabular}}
-
-\vspace{8pt}
+\ctable[
+  pos = h!,
+  caption = {Mean empirical metrics across cube sizes},
+  label = tab:res
+]{@{\extracolsep{1em}}ll*{4}{r}}{}{ \FL
+  Size & Metric & DRL + A$^\ast$ & GA & SA & Baseline \ML
+  $n=2$ & Runtime (s) &            3.1 &  0 &  0 &       10 \NN
+        & \# of Moves &            9.8 &  0 &  0 &       17 \ML
+  $n=3$ & Runtime (s) &           13.6 &  0 &  0 &       15 \NN
+        & \# of Moves &           22.1 &  0 &  0 &       32 \LL
 }
-
-\vspace{8pt}
-{\centering
-\resizebox{\linewidth}{!}{%
-\begin{tabular}{||c||c|c|c|c|}
-\hline
-    $\text{n=3}$ & $\text{DRL + A}^{\ast}$ & \hspace{11pt} $\text{GA}$ \hspace{11pt}  & \hspace{11pt} $\text{SA}$ \hspace{11pt} & $\text{Baseline}$ \\
- \hline
- Runtime (s) & 13.6 & 0 & 0 & 15\\ %[0.5ex]
- \hline
- \# of Moves & 22.1 & 0 & 0 & 32\\
- \hline
-\end{tabular}}
-
-\vspace{8pt}
-}
-
 
 % NOTE: COULD USE KORF AS A BASELINE
-% TODO: Turn into table? Great idea!
 
 \subsubsection{DRL + A$^{\ast}$}
 
@@ -280,7 +262,7 @@ The following tables contain the mean runtime and the mean number of moves for s
 \subsubsection{Baseline}
 
 \subsection{Discussion}
-It should be noted that the common metric used by the models, that is runtime and number of moves, immediately runs into a dilemma - should the DRL + A$^{\ast}$ model be evaluated only on the duration of the training or exclusively on the duration of the the solution of any given randomised cube. One could make the argument in either way, but highlighting that whilst the DRL + A$^{\ast}$ ran fastest, there was certainly a significant degree of overhead to its use.
+It should be noted that the common metric used by the models, that is runtime and number of moves, immediately runs into a dilemma---should the DRL + A$^{\ast}$ model be evaluated only on the duration of the training or exclusively on the duration of the the solution of any given randomised cube. One could make the argument in either way, but highlighting that whilst the DRL + A$^{\ast}$ ran fastest, there was certainly a significant degree of overhead to its use.
 
 Beyond that lay the parameters unique to each model, be it the number of layers for training the DNN, the A$^{\ast}$ weightings, the rate of mutation in the GA or the cooling rates in the SA. Modifying these values have well understood implications when the problems are treated in tandem - it is possible to see that in the case of GA and SA high mutation rates and high starting temperatures increase the time taken to arrive at a solution state, and yet such an analogous relationship does not exist for the DRL + A$^{\ast}$. However, one could (inelegantly) compare the number of generations in a GA with the number of layers in the NN used in the training process, arguing that many inputs are taken to ultimately return a unique item of use. According to present understanding, there is no such trait that can be described as truly common between the three methods employed in this investigation; where one analogy holds for two techniques, it either fails to capture the third outright or else makes the vaguest approximation to what is actually going on within the model.
 
