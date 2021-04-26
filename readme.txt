@@ -8,7 +8,7 @@
 
    Includes:
 
-   - Report
+   - Report and presentation documents
    - Custom genetic algorithm code
    - Custom simulated annealing code
    - Modified DeepCubeA fork as a Git submodule; see next item
