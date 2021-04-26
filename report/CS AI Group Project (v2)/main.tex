@@ -136,11 +136,19 @@ It should be noted that an implementation~\cite{Shoukat2019} based the work of K
 The Rubik's Cube for both $n=2$ and $n=3$ is a sparse state space problem, meaning that only one solution exists in an otherwise very large state space. This presents unique challenges to finding suitable techniques for devising solutions to the cubes.
 
 \subsection{Deep Reinforcement Learning + A$^{\ast}$ Search}
-Reinforcement Learning (RL) involves exploring state spaces in order to determine optimal policies for maximising rewards. In the case of a Rubik's Cube, the state space is incredibly sparse, with $\sim 10^{19}$ possible states, and only one solution. As such, classical RL is insufficient to solve a Rubik's Cube, leading to the requirement of DRL. DRL utilises Deep Learning which is able to combine and interpret information to reduce the overhead of exploring such a sparse state space. For example, rather than having to explore the more than a quintillion different states, the use of DRL can convert these collections of states into groups, from which the RL algorithm can then build policies more easily.
+Reinforcement Learning (RL) involves exploring state spaces in order to determine optimal policies for maximising rewards. In the case of a Rubik's Cube, the state space is incredibly sparse, with $\sim 10^{19}$ possible states, and only one solution. As such, classical RL is insufficient to solve a Rubik's Cube, leading to the requirement of DRL. DRL utilises Deep Learning to more efficiently operate over a large state space by eliminating the need to store it directly. Instead, models are trained to compute effective outputs from unstructured inputs by iteratively approximating a function of the domain.
 
-Unfortunately, even with these advanced techniques the Rubik's Cube proved unsuitable for solving with DRL alone. The sparse nature of the problem means that the learning element can often fail to find its way to a goal state from which it can claim a reward. To alleviate this problem, the way in which the DRL training occurs is changed; rather than starting with a randomised cube and trying to solve from there, a solved cube is randomised with the agent knowing how the cube achieved a solution from a seemingly random state. This is called Autodidactic Iteration, and ensures that every training instance can result in a solution. It is in this way that the inputs for the DRL can be selected to yield a useful basis for training. The resulting trained models then served as a heuristic to inform an A$^{\ast}$ Search technique in order to solve the Rubik's Cube.  In this sense, the trained Deep Neural Net (DNN) approximates an otherwise infeasibly large mapping of states to their respective values, i.e. their distance from the goal.
+Unfortunately, even with these advanced techniques the Rubik's Cube proved unsuitable for solving with DRL alone. The sparse nature of the problem means that the learning element can often fail to propagate rewards from the goal state. To alleviate this problem, the way in which the DRL training occurs is reversed; rather than starting with a randomised cube and trying to solve from there, a solved cube is randomised with the agent knowing how the random state was reached. This is called Autodidactic Iteration, and ensures that every training instance can result in a solution. It is in this way that training samples for the DNN can be selected to yield a useful basis for training a `cost-to-go' function $J$ that estimates the number of moves of a given state $s$ from the goal state. Training the DNN involves minimising the MSE between the current $J(s)$ and its update $J'(s)=\min_aJ(A(s,a))$, where $A(s,a)$ is the state resulting from taking action $a$ in $s$, in a process named Deep Approximate Value Iteration~\cite{agostinelli2019solving}.
 
-The other component of the A$^{\ast}$ cost function, the cost from the starting state, is often weighted to achieve better runtime performance.  In this investigation, the effects of varying this weight were examined, effectively demonstrating the relationship between a runtime-efficient and number-of-moves-efficient solution to different cubes.
+The trained function can then be used to inform a search strategy for solving Rubik's Cubes. Greedy Best-First Search was found to perform badly with more scrambled cubes, so a weighted A$^\ast$ Search with the following cost function $f$ is used instead:
+\begin{align*}
+  f(x)&=\lambda g(x)+h(x),\qquad\lambda\in [0,1] \\
+  h(x)&=\begin{cases}
+    0    & \text{if $x$ is the goal node} \\
+    J(x) & \text{otherwise}
+  \end{cases}
+\end{align*}
+Controlling the weighting factor $\lambda$ on the current path cost function $g$ can afford better runtime characteristics at the expense of optimality. To further offset the DNN evaluation overhead, the frontier is expanded in parallel batches, giving rise to Batch Weighted A$^\ast$ Search (BWAS).  This investigation examined the effects of varying $\lambda$ on runtime efficiency and solution optimality, with empirical results presented in Figure~\ref{fig:fig3}.
 
 \subsection{Genetic Algorithms}
 
@@ -158,7 +166,7 @@ The applications of GA to solve Rubik's Cubes in the literature were based on an
 
 The idea is that these new individuals will possess a combination of attributes that allow them to satisfy the fitness function even better, in turn increasing the chance of their characteristics being passed along. In this manner that mimics natural selection, over a number of generations it becomes possible to arrive at a population that contains individuals which satisfy the fitness criteria perfectly, at which point a solution has been reached.
 
-In this investigation, GA were used to solve a Rubik's Cube without human knowledge. The analytical solution modified the fitness criteria at different stages, in accordance with the Thistlethwaite methods, such that the direction of evolution was modified to become increasingly adept at solving the Rubik's Cube in a low number of steps.  This particular implementation however did not alter the cost function at any point, and so the GA could only act to minimise the following cost function:
+In this investigation, GA were used to solve a Rubik's Cube without human knowledge. The analytical solution modified the fitness criteria at different stages, in accordance with the Thistlethwaite methods, such that the direction of evolution was modified to become increasingly adept at solving the Rubik's Cube in a low number of steps. This particular implementation however did not alter the cost function at any point, and so the GA could only act to minimise the following cost function:
 \begin{align*}
   \text{All elements of a row} &
   \begin{cases}
@@ -231,7 +239,7 @@ Table~\ref{tab:res} presents the mean runtime and the mean number of moves for s
   pos = h!,
   caption = {Mean empirical metrics across cube sizes},
   label = tab:res
-]{@{\extracolsep{1em}}ll*{4}{r}}{}{ \FL
+]{@{\extracolsep{1em}}ll*{4}{r}}{}{                         \FL
   Size & Metric & DRL + A$^\ast$ & GA & SA & Baseline       \ML
   $n=2$ & Runtime (s) &            3.2 &  0 &  0 &       10 \NN
         & \# of Moves &            9.8 &  0 &  0 &       17 \ML
@@ -248,7 +256,7 @@ Table~\ref{tab:res} presents the mean runtime and the mean number of moves for s
 \centering
 \linespread{1.0}
 \includegraphics[width=0.8\linewidth]{images/bwas}
-\caption{Batch Weighted A$^{\ast}$ Search results ($\mu\pm\sigma$) with a batch size of 100 (the number of nodes that can be expanded simultaneously), for cubes up to 100 randomised moves away from the goal state. The length of a solution is also known as the number of moves required to reach a solved state.}
+\caption{BWAS solutions ($\mu\pm\sigma$) with a batch size of 100 (the number of nodes that can be expanded simultaneously), for cubes up to 100 randomised moves away from the goal state. The length of a solution is also known as the number of moves required to reach a solved state.}
 \label{fig:fig3}
 \end{small}
 \end{figure}
