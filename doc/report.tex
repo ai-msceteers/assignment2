@@ -1,5 +1,4 @@
-\documentclass[UKenglish]{libraries/svproc}
-%\documentclass[UKenglish]{svproc}
+\documentclass[UKenglish]{svproc}
 
 % Localisation
 \usepackage{babel}
@@ -7,7 +6,7 @@
 
 % Bibliography
 \usepackage[alldates=long, sorting=none]{biblatex}
-\addbibresource{rubik_f.bib}
+\addbibresource{rubik.bib}
 
 % Misc.
 \usepackage{amsmath}
@@ -16,6 +15,10 @@
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{textcomp}
+
+% Images
+\usepackage{graphicx}
+\graphicspath{{img/}}
 
 % Tables
 \usepackage{ctable}
@@ -124,9 +127,9 @@ Controlling the weighting factor $\lambda$ on the current path cost function $g$
 
 \subsection{Genetic Algorithms}
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
-\includegraphics[width=0.9\linewidth]{images/genetic-algorithm}
+\includegraphics[width=0.9\linewidth]{genetic-algorithm}
 \caption{Genetic Algorithms utilise reproduction, whereby a parent passes its characteristics onto its child. Over several generations an individual that better satisfies the fitness criteria emerges~\cite{10.5555/1671238}.}
 \label{fig:fig0}
 \end{figure}
@@ -157,9 +160,9 @@ This cost function was used to select for elitism and breeding, as well as for m
 
 \subsection{Simulated Annealing}
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
-\includegraphics[width=0.9\linewidth]{images/simulated-annealing}
+\includegraphics[width=0.9\linewidth]{simulated-annealing}
 \caption{By slowly approaching a solution state using a controlled stochastic method, Simulated Annealing results in a solved system~\cite{10.5555/1671238}.}
 \label{fig:fig1}
 \end{figure}
@@ -184,9 +187,9 @@ Before any algorithms could be applied a test environment had to be constructed.
     \item A method to apply either the random moves or a set of moves specified by the agent. Moves would be entered as a combination of a row/column specifier and a direction declaration.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
-\includegraphics[width=0.2\linewidth]{images/move_3u.png}
+\includegraphics[width=0.2\linewidth]{move_3u}
 \caption{Taking the nearer (highlighted) face as the frame of reference, this particular transformation would be described as a $[2,u]$ move. Using index notation, the third column of the face is rotated upwards by 90\textdegree~\cite{proj_l.hoang}.}
 \label{fig:fig2}
 \end{figure}
@@ -198,6 +201,7 @@ This cube could be manipulated, as in Figure~\ref{fig:fig2} by an agent in order
 Table~\ref{tab:res} presents the mean runtime and the mean number of moves for solving both the Pocket Cube and Rubik's Cube, over what were considered idealised parameters.
 
 \ctable[
+  pos = !h,
   caption = {Mean empirical metrics across cube sizes},
   label = tab:res
 ]{@{\extracolsep{1em}}ll*{4}{r}}{}{                             \FL
@@ -212,9 +216,9 @@ Table~\ref{tab:res} presents the mean runtime and the mean number of moves for s
 
 \subsubsection{DRL + A$^{\ast}$}
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
-\includegraphics[width=0.8\linewidth]{images/bwas}
+\includegraphics[width=0.8\linewidth]{bwas}
 \caption{Mean BWAS solutions ($\pm\sigma$) for 100 runs on cubes up to 100 random moves away from the goal state, with a batch size of 100, on 16 AMD EPYC 2nd Gen. CPUs. The length of a solution is also known as the number of moves required to reach a solved state.}
 \label{fig:fig3}
 \end{figure}
