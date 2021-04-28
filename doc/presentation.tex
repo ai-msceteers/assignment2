@@ -124,7 +124,7 @@
 \begin{frame}
   \frametitle{Simulated Annealing}
   \begin{itemize}
-  \item SA is an approach originally designed to model (you guessed it) annealing, whereby a material, typically a metal, is heated to relieve stress. It is then cooled gradually to allow new structures to form such that the ductility is increased---a preferable configuration.
+  \item SA is an approach originally designed to model (you guessed it) annealing, whereby a material, typically a metal, is heated to relieve stress. It is then cooled gradually to allow new structures to form such that the ductility is increased --- a preferable configuration.
   \item It is in this way that we treat the Rubik's Cube solver, whereby we start with a ``high-temperature'' system and as the system cools according to a specified cooling rate, configurations of moves which minimise the cost-function arise.
   \item If the system does not converge, it undergoes a reheating, whereby the cooling resumes from a temperature slightly above the end temperature. This cooling and reheating allows for the last few degenerate states to resolve and achieve a true global minimisation of the cost function.
   \end{itemize}
@@ -134,7 +134,7 @@
   \frametitle{Findings}
   \begin{itemize}
   \only<1>{\item The various methods were compared using the runtime and the number of moves required to reach a solution.}
-  \only<2>{\item In this table we can readily observe that DRL + A$^\ast$ consistently beat the baseline using domain knowledge---a very impressive feat.}
+  \only<2>{\item In this table we can readily observe that DRL + A$^\ast$ consistently beat the baseline using domain knowledge --- a very impressive feat.}
   \only<2>{\item It consistently produced the most efficient set of moves across all of the methods, and it only lost the the SA in terms of runtime for $n=2$.}
   \only<3>{\item GA solved the $n=2$ consistently, and only solved the $n=3$ cubes 27\% of the time.}
   \only<3>{\item The difficulty was attributed to becoming stuck in the degenerate states, which were inherently difficult to select out between generations.}
@@ -158,7 +158,7 @@
   \begin{itemize}
   \item All three approaches resulted in solved $n=2$ and $n=3$ cubes without human knowledge.
   \item Of the three, Deep Reinforcement Learning combined with an A$^\ast$ Search proved most consistently optimal.
-  \item That said, this investigation served as proof of concept for the possibility of Genetic Algorithms and Simulated Annealing solving $n=2$ and $n=3$ cubes without domain knowledge---approaches that had not before been present in the literature.
+  \item That said, this investigation served as proof of concept for the possibility of Genetic Algorithms and Simulated Annealing solving $n=2$ and $n=3$ cubes without domain knowledge --- approaches that had not before been present in the literature.
   \end{itemize}
 \end{frame}
 
