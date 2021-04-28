@@ -10,9 +10,6 @@
 
 % Misc.
 \usepackage{amsmath}
-\usepackage[export]{adjustbox}
-\usepackage{wrapfig}
-\usepackage{subcaption}
 \usepackage{float}
 \usepackage{textcomp}
 
@@ -29,13 +26,7 @@
 \urlstyle{rm}
 
 % Hyperlinks (load last)
-\usepackage[hidelinks]{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=blue,
-}
+\usepackage[colorlinks, allcolors=blue]{hyperref}
 
 %%% Project Information
 
@@ -123,15 +114,17 @@ The trained function can then be used to inform a search strategy for solving Ru
     J(x) & \text{otherwise}
   \end{cases}
 \end{align*}
-Controlling the weighting factor $\lambda$ on the current path cost function $g$ can afford better runtime characteristics at the expense of optimality. To further offset the DNN evaluation overhead, the frontier is expanded in parallel batches, giving rise to Batch Weighted A$^\ast$ Search (BWAS).  This investigation examined the effects of varying $\lambda$ on runtime efficiency and solution optimality, with empirical results presented in Figure~\ref{fig:fig3}.
+Controlling the weighting factor $\lambda$ on the current path cost function $g$ can afford better runtime characteristics at the expense of optimality. To further offset the DNN evaluation overhead, the frontier is expanded in parallel batches, giving rise to Batch Weighted A$^\ast$ Search (BWAS).  This investigation examined the effects of varying $\lambda$ on runtime efficiency and solution optimality, with empirical results presented in Figure~\ref{fig:bwas}.
 
 \subsection{Genetic Algorithms}
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.9\linewidth]{genetic-algorithm}
-\caption{Genetic Algorithms utilise reproduction, whereby a parent passes its characteristics onto its child. Over several generations an individual that better satisfies the fitness criteria emerges~\cite{10.5555/1671238}.}
-\label{fig:fig0}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.9\linewidth]{genetic-algorithm}
+  \caption{Genetic Algorithms utilise reproduction, whereby a parent passes its
+    characteristics onto its child. Over several generations an individual that
+    better satisfies the fitness criteria emerges~\cite{10.5555/1671238}.}
+  \label{fig:genetic-algorithm}
 \end{figure}
 
 GA define populations as a set of approximate solutions, with each individual representing one such attempt. Certain individuals are better suited to meeting fitness criteria (i.e. how well a solution conforms to the required behaviour) and so upon the passage of a generation, individuals with better fitness have a higher probability to reproduce, creating a new individual with characteristics from two previous approximations. However, reproduction is not the only way in which the population evolves. Concepts of mutation and elitism allow for the propagation of individuals with desirable traits as well. Overall, the passage from one generation to the next is composed of 60\% offspring, 30\% by mutation and 10\% by elitism. Offspring come about based on the previous notion of reproduction, whilst mutants are the result of lone individuals experiencing a number of small move alterations, and elitism allows for the propagation of the portion of the population that was judged to be most fit. The elites are selected from the best population that did not produce offspring, as to give them another chance to reproduce. To maintain diversity, if an individual was allowed to breed or mutate, it could not be carried along via elitism.
@@ -156,15 +149,16 @@ In this investigation, GA were used to solve a Rubik's Cube without human knowle
     +1 & \text{all colours not uniform}
   \end{cases}
 \end{align*}
-This cost function was used to select for elitism and breeding, as well as for meeting the termination criterion---a cost 0 cube arose in the event of a solution. The algorithm would also terminate in the event that an iteration threshold was exceeded, indicating that the cube had become stuck in a degenerate state and failed to solve.
+This cost function was used to select for elitism and breeding, as well as for meeting the termination criterion --- a cost 0 cube arose in the event of a solution. The algorithm would also terminate in the event that an iteration threshold was exceeded, indicating that the cube had become stuck in a degenerate state and failed to solve.
 
 \subsection{Simulated Annealing}
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.9\linewidth]{simulated-annealing}
-\caption{By slowly approaching a solution state using a controlled stochastic method, Simulated Annealing results in a solved system~\cite{10.5555/1671238}.}
-\label{fig:fig1}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.9\linewidth]{simulated-annealing}
+  \caption{By slowly approaching a solution state using a controlled stochastic
+    method, Simulated Annealing results in a solved system~\cite{10.5555/1671238}.}
+  \label{fig:simulated-annealing}
 \end{figure}
 
 SA begins as a process with an initial random state with an initial ``temperature''. This temperature affects the probability of accepting unfavourable moves that diminish the overall fitness of the current state. Whilst this may sound counter-productive, it is very important for preventing the Rubik's Cube from becoming stuck in a degenerate state, whereby it is unable to access moves that would diminish the cost function even further than the present state. This is a critical aspect of solving the puzzle on account of the fact that moves in Rubik's Cubes are non-commutative, that is to say, a move left followed by a move up is not identical to a move up followed by a move left. After a number of moves have occurred, the temperature begins to decrease, reducing the probabilities of accepting less favourable moves. This process continues until the system ``cools'' and either a solution has been reached, or the system is then ``reheated'' in a bid to shuffle around moves and solve the cube outright. Having specified parameters such as the initial temperature and cooling rate of the system, it was possible to investigate the effects of modifying these parameters to see whether a solution would successfully converge or not.
@@ -187,21 +181,24 @@ Before any algorithms could be applied a test environment had to be constructed.
     \item A method to apply either the random moves or a set of moves specified by the agent. Moves would be entered as a combination of a row/column specifier and a direction declaration.
 \end{itemize}
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.2\linewidth]{move_3u}
-\caption{Taking the nearer (highlighted) face as the frame of reference, this particular transformation would be described as a $[2,u]$ move. Using index notation, the third column of the face is rotated upwards by 90\textdegree~\cite{proj_l.hoang}.}
-\label{fig:fig2}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.2\linewidth]{move-3u}
+  \caption{Taking the nearer (highlighted) face as the frame of reference, this
+    particular transformation would be described as a $[2,u]$ move. Using index
+    notation, the third column of the face is rotated upwards by
+    90\textdegree~\cite{proj_l.hoang}.}
+  \label{fig:move-3u}
 \end{figure}
 
-This cube could be manipulated, as in Figure~\ref{fig:fig2} by an agent in order to reach a solution after a successful set of moves had been made.
+This cube could be manipulated, as in Figure~\ref{fig:move-3u} by an agent in order to reach a solution after a successful set of moves had been made.
 
 \subsection{Results}
 
 Table~\ref{tab:res} presents the mean runtime and the mean number of moves for solving both the Pocket Cube and Rubik's Cube, over what were considered idealised parameters.
 
 \ctable[
-  pos = !h,
+  pos = !ht,
   caption = {Mean empirical metrics across cube sizes},
   label = tab:res
 ]{@{\extracolsep{1em}}ll*{4}{r}}{}{                             \FL
@@ -212,20 +209,21 @@ Table~\ref{tab:res} presents the mean runtime and the mean number of moves for s
         & \# of Moves &             22 & 350 & 43623 &       32 \LL
 }
 
-% NOTE: COULD USE KORF AS A BASELINE
-
 \subsubsection{DRL + A$^{\ast}$}
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.8\linewidth]{bwas}
-\caption{Mean BWAS solutions ($\pm\sigma$) for 100 runs on cubes up to 100 random moves away from the goal state, with a batch size of 100, on 16 AMD EPYC 2nd Gen. CPUs. The length of a solution is also known as the number of moves required to reach a solved state.}
-\label{fig:fig3}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.8\linewidth]{bwas}
+  \caption{Mean BWAS solutions ($\pm\sigma$) for 100 runs on cubes up to 100
+    random moves away from the goal state, with a batch size of 100, on 16 AMD
+    EPYC 2nd Gen. CPUs. The length of a solution is also known as the number of
+    moves required to reach a solved state.}
+  \label{fig:bwas}
 \end{figure}
 
-Figure~\ref{fig:fig3} displays how the A$^{\ast}$ Search varied with weighting. Surprisingly, the difference in behaviour between the $n=2$ and $n=3$ can be seen in how the weighting drives performance. In the $n=2$ case, increasing the weighting reduces the move count as in its $n=3$ counterpart. However, it has the additional effect of driving down the runtime (which proportionally scales with the nodes expanded) as well, which directly contradicts the behaviour of the $n=3$ model. This peculiar behaviour arises due to the Pocket Cube possessing only a little over 3.5 million unique states---practically insignificant when compared with the more than 4 quintillion unique states of the Rubik's Cube. The number of nodes that need to be generated to reach a solution is diminished accordingly.
+Figure~\ref{fig:bwas} displays how the A$^{\ast}$ Search varied with weighting. Surprisingly, the difference in behaviour between the $n=2$ and $n=3$ can be seen in how the weighting drives performance. In the $n=2$ case, increasing the weighting reduces the move count as in its $n=3$ counterpart. However, it has the additional effect of driving down the runtime (which proportionally scales with the nodes expanded) as well, which directly contradicts the behaviour of the $n=3$ model. This peculiar behaviour arises due to the Pocket Cube possessing only a little over 3.5 million unique states --- practically insignificant when compared with the more than 4 quintillion unique states of the Rubik's Cube. The number of nodes that need to be generated to reach a solution is diminished accordingly.
 
-The behaviour we observe in the Rubik's Cube is more typical of our expectations---increasing the weighting drives the agent to find more efficient solutions, but at the cost of increased runtime.
+The behaviour we observe in the Rubik's Cube is more typical of our expectations --- increasing the weighting drives the agent to find more efficient solutions, but at the cost of increased runtime.
 
 \subsubsection{GA}
 The values in Table~\ref{tab:res} were obtained for a population of 150 for a move limit of 450.
@@ -234,26 +232,25 @@ While the Rubik's Cubes were not solved, proximity to the solution would enable 
 
 \subsubsection{SA}
 The values in Table~\ref{tab:res} were obtained for a starting temperature of 35, a cooling rate of 0.99, and a final temperature of 0.01. This starting temperature enabled the selection condition to accept a random move around 80\% of the time, until random moves were very seldom selected around the final temperature.
-SA was characterised primarily by its very long move count, for both $n=2$ and $n=3$, but such behaviour was to be expected---the stochastic method did not learn nor did it inherit beneficial characteristics from prior moves. Each move was only concerned with the state as it was. Additionally, by virtue of accepting random moves the move count was expected to bloat regardless. The surprising result however was in how quickly the SA was able to act---at 2.9 seconds the SA beat not only the baseline, but also the DRL + A$^{\ast}$ and GA method for the $n=2$ case, despite having over almost 40 times the number of moves. The SA continued to beat the the GA in terms of runtime, for the $n=3$ case despite again requiring an enormous number of moves to solve.
+SA was characterised primarily by its very long move count, for both $n=2$ and $n=3$, but such behaviour was to be expected --- the stochastic method did not learn nor did it inherit beneficial characteristics from prior moves. Each move was only concerned with the state as it was. Additionally, by virtue of accepting random moves the move count was expected to bloat regardless. The surprising result however was in how quickly the SA was able to act --- at 2.9 seconds the SA beat not only the baseline, but also the DRL + A$^{\ast}$ and GA method for the $n=2$ case, despite having over almost 40 times the number of moves. The SA continued to beat the the GA in terms of runtime, for the $n=3$ case despite again requiring an enormous number of moves to solve.
 
 \subsubsection{Baseline}
 The baseline used was an Iterative-Depth A$^{\ast}$ Search, which availed of domain knowledge. This was an august technique for solving Rubik's Cubes in less than 20 moves with a readily available implementation~\cite{Shoukat2019}.
 
 \subsection{Discussion}
-It should be noted that the common metric used by the models, that is runtime and number of moves, immediately runs into a dilemma---should the training time for the DRL + A$^{\ast}$ model included when measuring solution time?  One could argue either way, but it is important to highlight that whilst the DRL + A$^{\ast}$ ran fastest, there was certainly a significant degree of overhead to its use. It was only by the virtue of using the DRL to create a lookup table that DRL + A$^{\ast}$ was able to compete for the $n=3$ cube whereas the other models had to develop the solution from zero domain knowledge each time.
+It should be noted that the common metric used by the models, that is runtime and number of moves, immediately runs into a dilemma --- should the training time for the DRL + A$^{\ast}$ model included when measuring solution time?  One could argue either way, but it is important to highlight that whilst the DRL + A$^{\ast}$ ran fastest, there was certainly a significant degree of overhead to its use. It was only by the virtue of using the DRL to create a lookup table that DRL + A$^{\ast}$ was able to compete for the $n=3$ cube whereas the other models had to develop the solution from zero domain knowledge each time.
 
-Beyond that lay the parameters unique to each model, be it the architecture and hyperparameters of the DNN, the A$^{\ast}$ batch size and weightings, the rate of mutation in the GA or the cooling rates in the SA. Modifying these values has well understood implications when the problems are treated in tandem---it is possible to see that in the case of GA and SA high mutation rates and high starting temperatures increase the time taken to arrive at a solution state, and yet such an analogous relationship does not exist for the DRL + A$^{\ast}$. However, one could (inelegantly) compare the number of generations in a GA with the number of layers in the DNN used in the training process, arguing that many inputs are taken to ultimately return a unique item of use. According to present understanding, there is no such trait that can be described as truly common between the three methods employed in this investigation; where one analogy holds for two techniques, it either fails to capture the third outright or else makes the vaguest approximation to what is actually going on within the model.
+Beyond that lay the parameters unique to each model, be it the architecture and hyperparameters of the DNN, the A$^{\ast}$ batch size and weightings, the rate of mutation in the GA or the cooling rates in the SA. Modifying these values has well understood implications when the problems are treated in tandem --- it is possible to see that in the case of GA and SA high mutation rates and high starting temperatures increase the time taken to arrive at a solution state, and yet such an analogous relationship does not exist for the DRL + A$^{\ast}$. However, one could (inelegantly) compare the number of generations in a GA with the number of layers in the DNN used in the training process, arguing that many inputs are taken to ultimately return a unique item of use. According to present understanding, there is no such trait that can be described as truly common between the three methods employed in this investigation; where one analogy holds for two techniques, it either fails to capture the third outright or else makes the vaguest approximation to what is actually going on within the model.
 
 Whilst behaviour between the differing models was very difficult to compare for the $n=3$ scenario, it cannot be denied that the performance was very consistent; indeed, one can readily see between the three models that there is an interesting balance between the time taken and the number of moves to solve. The SA required a tremendous number of moves to solve, but ran the fastest, whereas the DRL + A$^{\ast}$ method very effectively minimised the number of turns required. GA seemed to position itself as an approach that took time to determine a fairly optimal configuration whilst taking a modest amount of time to run.
 
 Completeness of solutions is another criteria on which the models can be judged. Whilst the GA did solve every $n=2$ cube, $n=3$ cubes required longer sequences of moves, resulting in difficulty in solution. When many individuals in such a population had identical fitness, it became difficult for more favourable traits to propagate effectively. DRL + A$^{\ast}$ and SA did not encounter this dependency issue, with the former guaranteed solution states by ADI, and the latter continually marching on until a solution was located. It can be conjectured that were the GA not to be limited by the number of iterations, it too would have achieved the same completeness after the degeneracy had either mutated out, or a new offspring had just the right parents in a far off generation.
 
 \section{Conclusions}
-The investigation of artificially intelligent Rubik's Cube solvers without domain knowledge was a success---all three approaches Deep Reinforcement Learning + A$^{\ast}$ Search, Genetic Algorithms and Simulated Annealing were able to solve Rubik's Cubes without any additional shortcuts or heuristics being provided.
+The investigation of artificially intelligent Rubik's Cube solvers without domain knowledge was a success --- all three approaches Deep Reinforcement Learning + A$^{\ast}$ Search, Genetic Algorithms and Simulated Annealing were able to solve Rubik's Cubes without any additional shortcuts or heuristics being provided.
 
-Ultimately, the GA and SA could see improvement in future versions by inclusion of such heuristics to resolve the issue of being trapped in degenerate states. That said, the GA and SA approaches implemented in this investigation were the first of their kind---GA had previously been used with domain knowledge, and SA had been used to solve similar sparse state space problems, but these unique implementations demonstrate that techniques beyond DRL + A$^{\ast}$ search can solve the timeless Rubik's Cube without the help of humans.
+Ultimately, the GA and SA could see improvement in future versions by inclusion of such heuristics to resolve the issue of being trapped in degenerate states. That said, the GA and SA approaches implemented in this investigation were the first of their kind --- GA had previously been used with domain knowledge, and SA had been used to solve similar sparse state space problems, but these unique implementations demonstrate that techniques beyond DRL + A$^{\ast}$ search can solve the timeless Rubik's Cube without the help of humans.
 
 \clearpage
 \printbibliography
 \end{document}
-
