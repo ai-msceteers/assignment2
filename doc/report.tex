@@ -114,8 +114,7 @@ Reinforcement Learning (RL) involves exploring state spaces in order to determin
 Unfortunately, even with these advanced techniques the Rubik's Cube proved unsuitable for solving with DRL alone. The sparse nature of the problem means that the learning element can often fail to propagate rewards from the goal state. To alleviate this problem, the way in which the DRL training occurs is reversed; rather than starting with a randomised cube and trying to solve from there, a solved cube is randomised with the agent knowing how the random state was reached. This is called Autodidactic Iteration, and ensures that every training instance can result in a solution. It is in this way that training samples for the DNN can be selected to yield a useful basis for training a `cost-to-go' function $J$ that estimates the number of moves from a given state $s$ to the goal state. Training the DNN involves minimising the MSE between the current $J(s)$ and its update $J'(s)=\min_aJ(A(s,a))$, where $A(s,a)$ is the state resulting from taking action $a$ in $s$, in a process named Deep Approximate Value Iteration~\cite{agostinelli2019solving}.
 The trained function can then be used to inform a search strategy for solving Rubik's Cubes. Greedy Best-First Search was found to perform badly with more scrambled cubes, so a weighted A$^\ast$ Search with the following cost function $f$ is used instead:
 \begin{align*}
-  f(x)&=\lambda g(x)+h(x),\qquad\lambda\in [0,1] \\
-  h(x)&=
+  f(x) &= \lambda g(x) + h(x), & \lambda &\in [0,1], & h(x) &=
   \begin{cases}
     0    & \text{if $x$ is the goal node} \\
     J(x) & \text{otherwise}
