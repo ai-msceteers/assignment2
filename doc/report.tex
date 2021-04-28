@@ -54,15 +54,19 @@
 
 \begin{abstract}
 
-An investigation into solving Rubik's Cubes by applying the following AI strategies was performed:
-\begin{itemize}
-    \item Genetic Algorithms (GA)
-    \item Deep Reinforcement Learning + A$^{\ast}$ Search (DRL + A$^{\ast}$)
-    \item Simulated Annealing (SA)
-\end{itemize}
-These approaches were used in order to determine solutions to a $2\times 2\times 2$ ($n=2$) ``Pocket Cube'' and a classic $3\times 3\times 3$ ($n=3$) Rubik's Cube.
-
-The techniques broadly met with success, with every technique achieving a solution for a randomised cube. Times taken to solve each configuration varied between each instance, as did the number of turns required by each method to reach a solution. The DRL + A$^{\ast}$ method required the most up-front time due to its training component, but it resulted in consistent fast and efficient solutions. The novel GA solved every Pocket Cube and 27\% of Rubik's Cubes. Finally, SA resulted in very quick solutions for the Pocket Cube, and completed every Rubik's Cube, but required many turns to do so.
+  An investigation was conducted into solving Rubik's Cubes by applying the AI
+  strategies of Genetic Algorithms (GA), Deep Reinforcement Learning + A$^\ast$
+  Search (DRL + A$^\ast$), and Simulated Annealing (SA). These approaches were
+  used to determine solutions to $2\times 2\times 2$ ``Pocket Cubes'' and
+  classic $3\times 3\times 3$ Rubik's Cubes. The techniques broadly met with
+  success, with every technique achieving a solution for a scrambled cube. Times
+  taken to solve each configuration varied between each instance, as did the
+  number of turns required by each method to reach a solution. The DRL +
+  A$^\ast$ method required the most up-front time due to its training component,
+  but it resulted in consistent fast and efficient solutions. The novel GA
+  solved every Pocket Cube and 27\% of Rubik's Cubes. Finally, SA resulted in
+  very quick solutions for the Pocket Cube, and completed every Rubik's Cube,
+  but required many turns to do so.
 
 \keywords{genetic algorithms, deep reinforcement learning, simulated annealing}
 
@@ -117,7 +121,7 @@ The trained function can then be used to inform a search strategy for solving Ru
     J(x) & \text{otherwise}
   \end{cases}
 \end{align*}
-Controlling the weighting factor $\lambda$ on the current path cost function $g$ can afford better runtime characteristics at the expense of optimality. To further offset the DNN evaluation overhead, the frontier is expanded in parallel batches, giving rise to Batch Weighted A$^\ast$ Search (BWAS).  This investigation examined the effects of varying $\lambda$ on runtime efficiency and solution optimality, with empirical results presented in Figure~\ref{fig:bwas}.
+Controlling the weighting factor $\lambda$ on the current path cost function $g$ can afford better runtime characteristics at the expense of optimality. To further offset the DNN evaluation overhead, the frontier is expanded in parallel batches, giving rise to Batch Weighted A$^\ast$ Search (BWAS). This investigation examined the effects of varying $\lambda$ on runtime efficiency and solution optimality, with empirical results presented in Figure~\ref{fig:bwas}.
 
 \subsection{Genetic Algorithms}
 
@@ -134,7 +138,7 @@ GA define populations as a set of approximate solutions, with each individual re
 
 The idea is that these new individuals will possess a combination of attributes that allow them to satisfy the fitness function even better, in turn increasing the chance of their characteristics being passed along. In this manner that mimics natural selection, over a number of generations it becomes possible to arrive at a population that contains individuals which satisfy the fitness criteria perfectly, at which point a solution has been reached.
 
-In this investigation, GA were used to solve a Rubik's Cube without human knowledge. The analytical solution modified the fitness criteria at different stages, in accordance with the Thistlethwaite methods, such that the direction of evolution was modified to become increasingly adept at solving the Rubik's Cube in a low number of steps.  This particular implementation however did not alter the cost function at any point, and so the GA could only act to minimise the following cost function:
+In this investigation, GA were used to solve a Rubik's Cube without human knowledge. The analytical solution modified the fitness criteria at different stages, in accordance with the Thistlethwaite methods, such that the direction of evolution was modified to become increasingly adept at solving the Rubik's Cube in a low number of steps. This particular implementation however did not alter the cost function at any point, and so the GA could only act to minimise the following cost function:
 \begin{align*}
   \text{All elements of a row} &
   \begin{cases}
