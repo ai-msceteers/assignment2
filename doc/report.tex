@@ -81,13 +81,13 @@ Puzzles have long been a useful tool for examining the utility of AI. They provi
 In our investigation, we examine the ability of different agents to solve a Rubik's Cube, or indeed its smaller cousin the $2\times 2\times 2$ Pocket Cube, which is simply treated as a variant with a smaller state space.
 This particular puzzle sits at a cross-roads in terms of analysis. The Rubik's Cube is by no means a trivial pathfinding problem owing to the importance of move order, but neither is it a puzzle without a known solution. That said, the Rubik's Cube itself represents only a single member of a family of similar puzzles, such as higher dimensional $2\times 2\times 2\times 2$ objects, or longer sided $4\times 4\times 4$ cubes. A number of researchers have spent time investigating the applicability of different methods of solving the cube using intelligent agents, with varying degrees of success.
 
-At the outset, it was not expected that all of the approaches would yield perfect solutions to the Rubik's Cube. The heart of the investigation is built around understanding the methods and their applications in order to solve problems of this type, and this report will endeavour to share those findings accordingly.
+At the outset, it was not expected that all of the approaches would yield perfect solutions to the Rubik's Cube. The heart of the investigation is built around understanding the methods and their applications in order to solve problems of this type, and this report will endeavour to share those findings accordingly.\\
 
 \centerline{
 \href{https://tcdud-my.sharepoint.com/:v:/g/personal/wosulliv_tcd_ie/EfZp76zjybdOkXOPufEgXxcB1N7eRqVvDfTOixktLc8bgA?e=lQsjbX}{Video Presentation Link}}
 
 \section{Related Work}
-In keeping with the directive that the focus of the investigation should be on recent solutions of this field of problem, one group have been quite prolific in their publications on Rubik's Cube solvers in particular. The work of \citeauthor{agostinelli2019solving}~\autocite{agostinelli2019solving, mcaleer2019solving, mcaleer2018solving} formed a consistent basis of understanding for the problem as a whole, whilst also drawing attention to the use of Deep Reinforcement Learning (DRL) in their DeepCube implementation. The researchers succeeded in using policies determined by DRL to inform different search strategies, including Monte Carlo Tree Search (MCTS) and A$^\ast$ Search.
+In keeping with the directive to investigate state-of-the-art solutions, one group have been quite prolific in their publications on Rubik's Cube solvers in particular. The work of \citeauthor{agostinelli2019solving}~\autocite{agostinelli2019solving, mcaleer2019solving, mcaleer2018solving} formed a consistent basis of understanding for the problem as a whole, whilst also drawing attention to the use of Deep Reinforcement Learning (DRL) in their DeepCube implementation. The researchers succeeded in using policies determined by DRL to inform different search strategies, including Monte Carlo Tree Search (MCTS) and A$^\ast$ Search.
 
 Beyond the use of DRL lay two other approaches which draw influence from biology and physics, namely Genetic Algorithms (GAs) and Simulated Annealing (SA), respectively.
 
@@ -215,6 +215,8 @@ Table~\ref{tab:res} presents the mean runtime and the mean number of moves for s
   $n=3$ & Runtime (s) &           13.6 & 255 &   204 &       15 \NN
         & \# of Moves &             22 & 350 & 43623 &       32 \LL
 }
+
+\vspace{-2em}
 
 \subsubsection{DRL + A$^{\ast}$}
 
