@@ -123,7 +123,7 @@ Controlling the weighting factor $\lambda$ on the current path cost function $g$
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.9\linewidth]{genetic-algorithm}
+  \includegraphics[width=0.8\linewidth]{genetic-algorithm}
   \caption{Genetic Algorithms utilise reproduction, whereby a parent passes its
     characteristics onto its child. Over several generations an individual that
     better satisfies the fitness criteria emerges~\cite{10.5555/1671238}.}
@@ -158,7 +158,7 @@ This cost function was used to select for elitism and breeding, as well as for m
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.9\linewidth]{simulated-annealing}
+  \includegraphics[width=0.8\linewidth]{simulated-annealing}
   \caption{By slowly approaching a solution state using a controlled stochastic
     method, Simulated Annealing results in a solved system~\cite{10.5555/1671238}.}
   \label{fig:simulated-annealing}
@@ -186,12 +186,18 @@ Before any algorithms could be applied a test environment had to be constructed.
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.2\linewidth]{move-3u}
-  \caption{Taking the nearer (highlighted) face as the frame of reference, this
-    particular transformation would be described as a $[2,u]$ move. Using index
-    notation, the third column of the face is rotated upwards by
-    90\textdegree~\cite{proj_l.hoang}.}
-  \label{fig:move-3u}
+  \begin{minipage}[c]{0.2\linewidth}
+    \raggedleft
+    \includegraphics[width=0.7\linewidth]{move-3u}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.75\linewidth}
+    \caption{Taking the nearer (highlighted) face as the frame of reference,
+      this particular transformation would be described as a $[2,u]$ move. Using
+      index notation, the third column of the face is rotated upwards by
+      90\textdegree~\cite{proj_l.hoang}.}
+    \label{fig:move-3u}
+  \end{minipage}
 \end{figure}
 
 This cube could be manipulated, as in Figure~\ref{fig:move-3u} by an agent in order to reach a solution after a successful set of moves had been made.
@@ -216,7 +222,7 @@ Table~\ref{tab:res} presents the mean runtime and the mean number of moves for s
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.8\linewidth]{bwas}
+  \includegraphics[width=0.7\linewidth]{bwas}
   \caption{Mean BWAS solutions ($\pm\sigma$) for 100 runs on cubes up to 100
     random moves away from the goal state, with a batch size of 100, on 16 AMD
     EPYC 2nd Gen. CPUs. The length of a solution is also known as the number of
@@ -254,6 +260,5 @@ The investigation of artificially intelligent Rubik's Cube solvers without domai
 
 Ultimately, the GA and SA could see improvement in future versions by inclusion of such heuristics to resolve the issue of being trapped in degenerate states. That said, the GA and SA approaches implemented in this investigation were the first of their kind --- GA had previously been used with domain knowledge, and SA had been used to solve similar sparse state space problems, but these unique implementations demonstrate that techniques beyond DRL + A$^{\ast}$ search can solve the timeless Rubik's Cube without the help of humans.
 
-\clearpage
 \printbibliography
 \end{document}
